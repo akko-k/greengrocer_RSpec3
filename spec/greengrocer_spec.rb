@@ -9,14 +9,24 @@ RSpec.describe Greengrocer do
           expect(greengrocer.products.size).to eq product_params.size
         end
 
-        it "@productsとproduct_paramsの名前が同じであること" do
+        it "@productsとproduct_paramsの1つ目の要素の名前が同じであること" do
           greengrocer = Greengrocer.new(product_params)
-          expect(greengrocer.products.first.name).to eq product_params[0][:name]
+          expect(greengrocer.products[0].name).to eq product_params[0][:name]
         end
 
-        it "@productsとproduct_paramsの金額が同じであること" do
+        it "@productsとproduct_paramsの1つ目の要素の金額が同じであること" do
           greengrocer = Greengrocer.new(product_params)
-          expect(greengrocer.products.first.price).to eq product_params[0][:price]
+          expect(greengrocer.products[0].price).to eq product_params[0][:price]
+        end
+
+        it "@productsとproduct_paramsの2つ目の要素の名前が同じであること" do
+          greengrocer = Greengrocer.new(product_params)
+          expect(greengrocer.products[1].name).to eq product_params[1][:name]
+        end
+
+        it "@productsとproduct_paramsの2つ目の要素の金額が同じであること" do
+          greengrocer = Greengrocer.new(product_params)
+          expect(greengrocer.products[1].price).to eq product_params[1][:price]
         end
       end
     end
