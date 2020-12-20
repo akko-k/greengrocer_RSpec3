@@ -8,6 +8,16 @@ RSpec.describe Greengrocer do
           greengrocer = Greengrocer.new(product_params)
           expect(greengrocer.products.size).to eq product_params.size
         end
+
+        it "@productsとproduct_paramsの名前が同じであること" do
+          greengrocer = Greengrocer.new(product_params)
+          expect(greengrocer.products.first.name).to eq product_params[0][:name]
+        end
+
+        it "@productsとproduct_paramsの金額が同じであること" do
+          greengrocer = Greengrocer.new(product_params)
+          expect(greengrocer.products.first.price).to eq product_params[0][:price]
+        end
       end
     end
   end
