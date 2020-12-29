@@ -28,7 +28,12 @@ RSpec.describe Greengrocer do
   # ▼単体テスト３ 正常系(register_productメソッド)
   describe ".register_product" do
     context "メソッドが実行されたとき" do
-      let(:product_params) { [] }
+      let(:product_params) do
+        [
+          { name: "トマト", price: 100 },
+          { name: "きゅうり", price: 200 }
+        ]
+      end
       let(:adding_products) do
         [
           {name: "ごぼう", price: 250},
@@ -38,19 +43,19 @@ RSpec.describe Greengrocer do
       let(:greengrocer) { Greengrocer.new(product_params) }
       let(:products) { greengrocer.products }
       
-      it "@productsの数とproduct_paramsの要素の数が同じであること" do
+      it "productsの要素の数と「product_paramsとadding_productsの要素の数の和」が同じであること" do
         greengrocer.register_product(adding_products)
-        expect(products.size).to eq adding_products.size
+        expect(products.size).to eq (product_params.size + adding_products.size)
       end
 
-      it "@productsとproduct_paramsの1つ目の要素の名前が同じであること" do
+      it "productsとadding_productsの要素の名前が同じであること" do
         greengrocer.register_product(adding_products)
-        expect(products[0].name).to eq adding_products[0][:name]
+        expect(products[product_params.size].name).to eq adding_products[0][:name]
       end
       
-      it "@productsとproduct_paramsの1つ目の要素の金額が同じであること" do
+      it "productsとadding_productsの要素の名前が同じであること" do
         greengrocer.register_product(adding_products)
-        expect(products[0].price).to eq adding_products[0][:price]
+        expect(products[product_params.size].price).to eq adding_products[0][:price]
       end
     end
   end
