@@ -15,11 +15,11 @@ RSpec.describe Greengrocer do
         expect(products.size).to eq product_params.size
       end
 
-      it "@productsとproduct_paramsの1つ目の要素の名前が同じであること" do
+      it "@productsとproduct_paramsそれぞれの1つ目の要素の名前が同じであること" do
         expect(products[0].name).to eq product_params[0][:name]
       end
       
-      it "@productsとproduct_paramsの1つ目の要素の金額が同じであること" do
+      it "@productsとproduct_paramsそれぞれの要素の金額が同じであること" do
         expect(products[0].price).to eq product_params[0][:price]
       end
     end
@@ -43,24 +43,24 @@ RSpec.describe Greengrocer do
       let(:greengrocer) { Greengrocer.new(product_params) }
       let(:products) { greengrocer.products }
       
-      it "productsの要素の数と「product_paramsとadding_productsの要素の数の和」が同じであること" do
+      it "@productsの要素の数と「product_paramsとadding_productsの要素の数の和」が同じであること" do
         greengrocer.register_product(adding_products)
-        expect(products.size).to eq (product_params.size + adding_products.size)
+        expect(products.size).to eq (product_params + adding_products).size
       end
 
-      it "productsとadding_productsの要素の名前が同じであること" do
+      it "@productsのうち指定する要素とadding_productsの要素の名前が同じであること" do
         greengrocer.register_product(adding_products)
         expect(products[product_params.size].name).to eq adding_products[0][:name]
       end
       
-      it "productsとadding_productsの要素の名前が同じであること" do
+      it "@productsのうち指定する要素とadding_productsの要素の名前が同じであること" do
         greengrocer.register_product(adding_products)
         expect(products[product_params.size].price).to eq adding_products[0][:price]
       end
     end
   end
 
-  # ▼単体テスト4 正常系(disp_productsメソッド)　※戻り値がnil
+  # ▼単体テスト4 正常系(disp_productsメソッド)
   describe ".disp_products" do
     context "メソッドが実行されたとき" do
       let(:product_params) do
@@ -72,14 +72,10 @@ RSpec.describe Greengrocer do
       let(:greengrocer) { Greengrocer.new(product_params) }
       let(:products) { greengrocer.products }
       
-      it "productsの1つ目の要素の名前の値が取得できていること" do
-        greengrocer.disp_products
-        expect(products[0].name).to eq "トマト"
-      end
-
-      it "productsの1つ目の要素の金額の値が取得できていること" do
-        greengrocer.disp_products
-        expect(products[0].price).to eq 100
+      it "出力処理ができていること" do
+        expect do
+          greengrocer.disp_products
+        end.to output( "いらっしゃいませ！商品を選んで下さい。\n49.トマト(¥100)\n50.きゅうり(¥200)\n" ).to_stdout
       end
     end
   end
