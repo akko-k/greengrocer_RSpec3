@@ -74,7 +74,7 @@ RSpec.describe Greengrocer do
       it "出力処理ができていること" do
         id = Product.class_variable_get('@@count')
         expect { greengrocer.disp_products }
-          .to output( "いらっしゃいませ！商品を選んで下さい。\n#{id + 1 }.トマト(¥100)\n#{id + 2 }.きゅうり(¥200)\n" ).to_stdout
+          .to output( "いらっしゃいませ！商品を選んで下さい。\n#{id + 1}.#{product_params[0][:name]}(¥#{product_params[0][:price]})\n#{id + 2}.#{product_params[1][:name]}(¥#{product_params[1][:price]})\n" ).to_stdout
       end
     end
   end
