@@ -48,12 +48,12 @@ RSpec.describe Greengrocer do
         expect(products.size).to eq (product_params + adding_products).size
       end
 
-      it "@productsのうち指定する要素とadding_productsの要素の名前が同じであること" do
+      it "@productsの指定する要素とadding_productsの指定する要素の名前が同じであること" do
         greengrocer.register_product(adding_products)
         expect(products[product_params.size].name).to eq adding_products[0][:name]
       end
       
-      it "@productsのうち指定する要素とadding_productsの要素の名前が同じであること" do
+      it "@productsの指定する要素とadding_productsの指定する要素の名前が同じであること" do
         greengrocer.register_product(adding_products)
         expect(products[product_params.size].price).to eq adding_products[0][:price]
       end
@@ -70,12 +70,11 @@ RSpec.describe Greengrocer do
         ]
       end
       let(:greengrocer) { Greengrocer.new(product_params) }
-      let(:products) { greengrocer.products }
       
       it "出力処理ができていること" do
-        expect do
-          greengrocer.disp_products
-        end.to output( "いらっしゃいませ！商品を選んで下さい。\n49.トマト(¥100)\n50.きゅうり(¥200)\n" ).to_stdout
+        id = Product.class_variable_get('@@count')
+        expect { greengrocer.disp_products }
+          .to output( "いらっしゃいませ！商品を選んで下さい。\n#{id + 1 }.トマト(¥100)\n#{id + 2 }.きゅうり(¥200)\n" ).to_stdout
       end
     end
   end
