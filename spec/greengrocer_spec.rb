@@ -48,12 +48,12 @@ RSpec.describe Greengrocer do
         expect(products.size).to eq (product_params + adding_product_params).size
       end
 
-      it "@productsの指定する要素とadding_product_paramsの指定する要素の名前が同じであること" do
+      it "@productsの最後の要素とadding_product_paramsの最後の要素の名前が同じであること" do
         greengrocer.register_product(adding_product_params)
         expect(products[-1].name).to eq adding_product_params[-1][:name]
       end
       
-      it "@productsの指定する要素とadding_product_paramsの指定する要素の名前が同じであること" do
+      it "@productsの最後の要素とadding_product_paramsの最後の要素の名前が同じであること" do
         greengrocer.register_product(adding_product_params)
         expect(products[-1].price).to eq adding_product_params[-1][:price]
       end
