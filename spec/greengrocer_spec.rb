@@ -34,7 +34,7 @@ RSpec.describe Greengrocer do
           { name: "きゅうり", price: 200 }
         ]
       end
-      let(:adding_products) do
+      let(:adding_product_params) do
         [
           {name: "ごぼう", price: 250},
           {name: "れんこん", price: 350}
@@ -43,19 +43,19 @@ RSpec.describe Greengrocer do
       let(:greengrocer) { Greengrocer.new(product_params) }
       let(:products) { greengrocer.products }
       
-      it "@productsの要素の数と「product_paramsとadding_productsの要素の数の和」が同じであること" do
-        greengrocer.register_product(adding_products)
-        expect(products.size).to eq (product_params + adding_products).size
+      it "@productsの要素の数と「product_paramsとadding_product_paramsの要素の数の和」が同じであること" do
+        greengrocer.register_product(adding_product_params)
+        expect(products.size).to eq (product_params + adding_product_params).size
       end
 
-      it "@productsの指定する要素とadding_productsの指定する要素の名前が同じであること" do
-        greengrocer.register_product(adding_products)
-        expect(products[product_params.size].name).to eq adding_products[0][:name]
+      it "@productsの指定する要素とadding_product_paramsの指定する要素の名前が同じであること" do
+        greengrocer.register_product(adding_product_params)
+        expect(products[-1].name).to eq adding_product_params[-1][:name]
       end
       
-      it "@productsの指定する要素とadding_productsの指定する要素の名前が同じであること" do
-        greengrocer.register_product(adding_products)
-        expect(products[product_params.size].price).to eq adding_products[0][:price]
+      it "@productsの指定する要素とadding_product_paramsの指定する要素の名前が同じであること" do
+        greengrocer.register_product(adding_product_params)
+        expect(products[-1].price).to eq adding_product_params[-1][:price]
       end
     end
   end

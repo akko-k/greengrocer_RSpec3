@@ -17,6 +17,10 @@ RSpec.describe User do
       
 
       it "入力値が大きい整数の場合（かつ入力値のidが存在しない場合）、再入力を促すこと" do
+        # user.stub(:gets) { 100 }
+        # expect { user.choose_product(products) }
+        #   .to output( "#{products.first.id}から#{products.last.id}の番号から選んでください。").to_stdout
+        #   user.choose_product(products) if $0 == __FILE__
       end
 
       it "入力値が0の場合（かつ入力値のidが存在しない場合）、再入力を促すこと" do
