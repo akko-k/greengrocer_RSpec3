@@ -18,7 +18,7 @@ RSpec.describe User do
         id = Product.class_variable_get('@@count')
         big_positive_integer = 100
         negative_integer = -1
-        if id != big_positive_integer && id != negative_integer = -1 && id != 0
+        if id != big_positive_integer && id != negative_integer && id != 0
           select_product_num = StringIO.new("#{big_positive_integer}\n0\n#{negative_integer}\n文字列\n")
           pronpt_re_enter_msg = "#{products.first.id}から#{products.last.id}の番号から選んでください。"
           allow(ARGF).to receive(:gets.to_i) { select_product_num.gets.to_i }
