@@ -21,7 +21,9 @@ RSpec.describe User do
         allow(ARGF).to receive(:gets) { input }
         expect { User.new.choose_product(products) }
           .to output(pronpt_re_enter_msg).to_stdout
-          allow(ARGF).to receive(:exit) { input }
+        allow(ARGF).to receive(:exit) { input }
+        # expect { User.new.choose_product(products) }
+        #   .to 
       end
     end
 
