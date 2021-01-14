@@ -16,14 +16,11 @@ RSpec.describe User do
     context "idとイコールではない大きい整数を入力したとき" do
       it '再入力を促すこと' do
         id = Product.class_variable_get('@@count')
-        big_positive_integer = 100
-        if id != big_positive_integer
-          select_product_num = StringIO.new("#{big_positive_integer}\n")
-          pronpt_re_enter_msg = "#{products.first.id}から#{products.last.id}の番号から選んでください。"
-          allow(ARGF).to receive_message_chain(:gets, :to_i) { select_product_num.gets.to_i }
-          expect { User.new.choose_product(products) }
-            .to output(pronpt_re_enter_msg).to_stdout
-        end
+        input = "100\n"
+        pronpt_re_enter_msg = "#{products.first.id}から#{products.last.id}の番号から選んでください。"
+        allow(ARGF).to receive(:gets) { input }
+        expect { User.new.choose_product(products) }
+          .to output(pronpt_re_enter_msg).to_stdout
       end
     end
 
