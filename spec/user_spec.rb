@@ -30,20 +30,21 @@ RSpec.describe User do
 
     # ▼単体テスト5 異常系(choose_productメソッド)※入力ミスに対応できているかどうかを確認（大きい整数，0，負の整数，文字列）
     context "idとして存在しない大きい整数を入力したとき" do
-      # it '再入力を促すこと' do
-      #   wrong_input = "100\n"
-      #   correct_input = "#{products.first.id}\n"
-      #   allow(ARGF).to receive(:gets).and_return wrong_input, correct_input
-      #   pronpt_re_enter_msg = "#{products.first.id}から#{products.last.id}の番号から選んでください。"
-      #   expect { User.new.choose_product(products) }
-      #     .to output(pronpt_re_enter_msg,).to_stdout
-      # end
+      it '再入力を促すこと' do
+        wrong_input = "100\n"
+        correct_input = "#{products.first.id}\n"
+        allow(ARGF).to receive(:gets).and_return wrong_input, correct_input
+        pronpt_choose_id_msg = "商品の番号を選択 >"
+        pronpt_re_enter_msg = "#{products.first.id}から#{products.last.id}の番号から選んでください。"
+        expect { User.new.choose_product(products) }
+          .to output(pronpt_choose_id_msg + pronpt_re_enter_msg + "\n" + pronpt_choose_id_msg ).to_stdout
+      end
     end
 
-    context "idとイコールではない0を入力したとき" do
+    context "idとして存在しない0を入力したとき" do
     end
 
-    context "idとイコールではない負の整数を入力したとき" do
+    context "idとして存在しない負の整数を入力したとき" do
     end
 
     context "文字列を入力したとき" do
