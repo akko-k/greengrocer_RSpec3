@@ -34,8 +34,7 @@ RSpec.describe User do
       let(:wrong_input) { "100\n" }
       it '再入力を促すこと' do
         allow(ARGF).to receive(:gets).and_return wrong_input, correct_input
-        expect { user.choose_product(products) }
-          .to output( ).to_stdout
+        expect { user.choose_product(products) }.to output(pronpt_re_enter_msg).to_stdout
       end
     end
 
