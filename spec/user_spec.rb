@@ -39,12 +39,27 @@ RSpec.describe User do
     end
 
     context "idとして存在しない0を入力したとき" do
+      let(:wrong_input) { "0\n" }
+      it '再入力を促すこと' do
+        allow(ARGF).to receive(:gets).and_return wrong_input, correct_input
+        expect { user.choose_product(products) }.to output(pronpt_re_enter_msg).to_stdout
+      end
     end
 
     context "idとして存在しない負の整数を入力したとき" do
+      let(:wrong_input) { "-1\n" }
+      it '再入力を促すこと' do
+        allow(ARGF).to receive(:gets).and_return wrong_input, correct_input
+        expect { user.choose_product(products) }.to output(pronpt_re_enter_msg).to_stdout
+      end
     end
 
     context "文字列を入力したとき" do
+      let(:wrong_input) { "hoge\n" }
+      it '再入力を促すこと' do
+        allow(ARGF).to receive(:gets).and_return wrong_input, correct_input
+        expect { user.choose_product(products) }.to output(pronpt_re_enter_msg).to_stdout
+      end
     end
 
   end
