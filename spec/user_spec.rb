@@ -48,7 +48,7 @@ RSpec.describe User do
       end
     end
 
-    context "数字以外の文字列を入力したとき" do
+    context "数値以外の文字列を入力したとき" do
       let(:wrong_input) { "hoge\n" }
 
       it '再入力を促すこと' do
