@@ -96,11 +96,11 @@ describe ".ask_quantity" do
   let(:user) { User.new }
   let(:correct_input) { "#{products.last.id}\n" }
   let(:chosen_product) { user.chosen_product }
+  let(:ask_msg) { "#{chosen_product.name}ですね。何個買いますか？\n" }
   context "メソッドが実行されたとき" do
     it "userが選択した商品の名前を含む，期待した表示がされること" do
       allow(ARGF).to receive(:gets).and_return correct_input
       user.choose_product(products)
-      ask_msg = "#{chosen_product.name}ですね。何個買いますか？\n"
       expect{ greengrocer.ask_quantity(chosen_product)}.to output(ask_msg).to_stdout
     end
   end
