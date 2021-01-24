@@ -31,19 +31,19 @@ RSpec.describe User do
 
     # ▼単体テスト5 異常系(choose_productメソッド)※不正な値の入力に対応できているかどうかを確認
     context "商品一覧の最初のidより１小さい数の文字列を入力したとき" do
-      let(:big_wrong_input) { "#{products.first.id - 1}\n" }
+      let(:small_wrong_input) { "#{products.first.id - 1}\n" }
 
       it '再入力を促すこと' do
-        allow(ARGF).to receive(:gets).and_return big_wrong_input, correct_input
+        allow(ARGF).to receive(:gets).and_return small_wrong_input, correct_input
         expect { user.choose_product(products) }.to output(pronpt_re_enter_msg).to_stdout
       end
     end
 
     context "商品一覧の最後のidより１大きい数の文字列を入力したとき" do
-      let(:small_wrong_input) { "#{products.last.id + 1}\n" }
+      let(:big_wrong_input) { "#{products.last.id + 1}\n" }
 
       it '再入力を促すこと' do
-        allow(ARGF).to receive(:gets).and_return small_wrong_input, correct_input
+        allow(ARGF).to receive(:gets).and_return big_wrong_input, correct_input
         expect { user.choose_product(products) }.to output(pronpt_re_enter_msg).to_stdout
       end
     end
