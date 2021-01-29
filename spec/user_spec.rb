@@ -65,7 +65,7 @@ RSpec.describe User do
     let(:user) { User.new }
     let(:pronpt_re_enter_msg) { /１個以上選んでください。/ }
     let(:correct_input) { rand(1..1000) }
-    # ▼単体テスト6 正常系(decide_quantityメソッド)
+    # ▼単体テスト7 正常系(decide_quantityメソッド)
     context "1以上の数字を入力したとき" do
       
       it '@quantity_of_productと入力値が等しいこと' do
@@ -74,7 +74,7 @@ RSpec.describe User do
         expect(user.quantity_of_product).to eq correct_input.to_i
       end
     end
-    # ▼単体テスト6 異常系(decide_quantityメソッド)※不正な値の入力に対応できているかどうかを確認
+    # ▼単体テスト7 異常系(decide_quantityメソッド)※不正な値の入力に対応できているかどうかを確認
     context "0を入力したとき" do
       let(:zero_wrong_input) { "0" }
 
