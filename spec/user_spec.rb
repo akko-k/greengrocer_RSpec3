@@ -60,4 +60,28 @@ RSpec.describe User do
     end
 
   end
+
+  describe ".decide_quantity" do
+    let(:user) { User.new }
+    let(:pronpt_re_enter_msg) { /１個以上選んでください。/ }
+    let(:correct_input) { "2" }
+    # ▼単体テスト6 正常系(decide_quantityメソッド)
+    context "1以上の数の文字列を入力したとき" do
+      
+      it '@quantity_of_productと入力値が等しいこと' do
+        allow(ARGF).to receive(:gets).and_return correct_input
+        user.decide_quantity
+        expect(user.quantity_of_product).to eq correct_input.to_i
+      end
+    end
+    # ▼単体テスト6 異常系(decide_quantityメソッド)※不正な値の入力に対応できているかどうかを確認
+    context "0以下の数の文字列を入力したとき" do
+      let(:less_than_one_wrong_input) { "0" }
+
+      it '再入力を促すこと' do
+        allow(ARGF).to receive(:gets).and_return less_than_one_wrong_input, correct_input
+        expect { user.decide_quantity }.to output(pronpt_re_enter_msg).to_stdout
+      end
+    end
+  end
 end
