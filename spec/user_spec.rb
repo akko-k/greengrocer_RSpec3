@@ -41,7 +41,7 @@ RSpec.describe User do
       it_behaves_like '再入力を促すこと'
     end
 
-    context "商品一覧の最後のidより１大きい数の文字列を入力したとき" do
+    context "商品一覧の最後のidより１大きい数字を入力したとき" do
       let(:big_wrong_input) { "#{products.last.id + 1}\n" }
 
       it '再入力を促すこと' do
@@ -50,7 +50,7 @@ RSpec.describe User do
       end
     end
 
-    context "数値以外の文字列を入力したとき" do
+    context "数字以外の文字列を入力したとき" do
       let(:string_wrong_input) { "hoge\n" }
 
       it '再入力を促すこと' do
@@ -64,9 +64,9 @@ RSpec.describe User do
   describe ".decide_quantity" do
     let(:user) { User.new }
     let(:pronpt_re_enter_msg) { /１個以上選んでください。/ }
-    let(:correct_input) { "2" }
+    let(:correct_input) { rand(1..1000) }
     # ▼単体テスト6 正常系(decide_quantityメソッド)
-    context "1以上の数の文字列を入力したとき" do
+    context "1以上の数字を入力したとき" do
       
       it '@quantity_of_productと入力値が等しいこと' do
         allow(ARGF).to receive(:gets).and_return correct_input
@@ -75,11 +75,29 @@ RSpec.describe User do
       end
     end
     # ▼単体テスト6 異常系(decide_quantityメソッド)※不正な値の入力に対応できているかどうかを確認
-    context "0以下の数の文字列を入力したとき" do
-      let(:less_than_one_wrong_input) { "0" }
+    context "0を入力したとき" do
+      let(:zero_wrong_input) { "0" }
 
       it '再入力を促すこと' do
-        allow(ARGF).to receive(:gets).and_return less_than_one_wrong_input, correct_input
+        allow(ARGF).to receive(:gets).and_return zero_wrong_input, correct_input
+        expect { user.decide_quantity }.to output(pronpt_re_enter_msg).to_stdout
+      end
+    end
+
+    context "負の数字を入力したとき" do
+      let(:negative_integer_wrong_input) { rand(-1000...0) }
+
+      it '再入力を促すこと' do
+        allow(ARGF).to receive(:gets).and_return negative_integer_wrong_input, correct_input
+        expect { user.decide_quantity }.to output(pronpt_re_enter_msg).to_stdout
+      end
+    end
+    
+    context "数字以外の文字列を入力したとき" do
+      let(:string_wrong_input) { "hoge\n" }
+
+      it '再入力を促すこと' do
+        allow(ARGF).to receive(:gets).and_return string_wrong_input, correct_input
         expect { user.decide_quantity }.to output(pronpt_re_enter_msg).to_stdout
       end
     end
