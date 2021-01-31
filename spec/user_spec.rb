@@ -59,8 +59,8 @@ RSpec.describe User do
 
   describe ".decide_quantity" do
     let(:user) { User.new }
-    let(:pronpt_re_enter_msg) { /１個以上選んでください。/ }
     let(:correct_input) { rand(1..1000) }
+    
     # ▼単体テスト7 正常系(decide_quantityメソッド)
     context "1以上の数字を入力したとき" do
       
@@ -71,31 +71,28 @@ RSpec.describe User do
       end
     end
     # ▼単体テスト7 異常系(decide_quantityメソッド)※不正な値の入力に対応できているかどうかを確認
-    context "0を入力したとき" do
-      let(:zero_wrong_input) { "0" }
+    let(:pronpt_re_enter_msg) { /１個以上選んでください。/ }
 
-      it '再入力を促すこと' do
-        allow(ARGF).to receive(:gets).and_return zero_wrong_input, correct_input
+    shared_examples '再入力を促すこと' do
+      it do
+        allow(ARGF).to receive(:gets).and_return wrong_input, correct_input
         expect { user.decide_quantity }.to output(pronpt_re_enter_msg).to_stdout
       end
+    end
+
+    context "0を入力したとき" do
+      let(:wrong_input) { "0" }
+      it_behaves_like '再入力を促すこと'
     end
 
     context "負の数字を入力したとき" do
-      let(:negative_integer_wrong_input) { rand(-1000...0) }
-
-      it '再入力を促すこと' do
-        allow(ARGF).to receive(:gets).and_return negative_integer_wrong_input, correct_input
-        expect { user.decide_quantity }.to output(pronpt_re_enter_msg).to_stdout
-      end
+      let(:wrong_input) { rand(-1000...0) }
+      it_behaves_like '再入力を促すこと'
     end
     
     context "数字以外の文字列を入力したとき" do
-      let(:string_wrong_input) { "hoge\n" }
-
-      it '再入力を促すこと' do
-        allow(ARGF).to receive(:gets).and_return string_wrong_input, correct_input
-        expect { user.decide_quantity }.to output(pronpt_re_enter_msg).to_stdout
-      end
+      let(:wrong_input) { "hoge\n" }
+      it_behaves_like '再入力を促すこと'
     end
   end
 end
