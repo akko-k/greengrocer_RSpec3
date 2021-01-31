@@ -59,7 +59,7 @@ RSpec.describe User do
 
   describe ".decide_quantity" do
     let(:user) { User.new }
-    let(:correct_input) { rand(1..1000) }
+    let(:correct_input) { rand(1..100) }
     
     # ▼単体テスト7 正常系(decide_quantityメソッド)
     context "1以上の数字を入力したとき" do
