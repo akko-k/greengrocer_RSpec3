@@ -86,7 +86,7 @@ RSpec.describe User do
     end
 
     context "負の数字を入力したとき" do
-      let(:wrong_input) { rand(-1000...0) }
+      let(:wrong_input) { rand(-100..-1) }
       it_behaves_like '再入力を促すこと'
     end
     
