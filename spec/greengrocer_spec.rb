@@ -117,13 +117,14 @@ describe ".calculate_charges" do
   let(:greengrocer) { Greengrocer.new(product_params) }
   let(:products) { greengrocer.products } # 略しているだけ
   let(:user) { User.new }
-  let(:chosen_product) { products.find{|product| product.id == 53 } }
+  let(:chosen_product) { products[0] }
   let(:quantity_of_product) { 4 }
   let(:thank_msg) { "お買い上げありがとうございました！" }
 
   context "quantity_of_productが4個，chosen_productが最初の要素のとき" do
     let(:total_price_msg){ "合計金額は#{(chosen_product.price * quantity_of_product).floor }円です。" }
     it "正しい合計金額を含む，期待した表示がされること" do
+      binding.pry
       expect{ greengrocer.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
     end
   end
