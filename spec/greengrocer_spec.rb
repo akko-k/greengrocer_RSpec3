@@ -124,7 +124,6 @@ describe ".calculate_charges" do
   context "quantity_of_productが4個，chosen_productが最初の要素のとき" do
     let(:total_price_msg){ "合計金額は#{(chosen_product.price * quantity_of_product).floor }円です。" }
     it "正しい合計金額を含む，期待した表示がされること" do
-      binding.pry
       expect{ greengrocer.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
     end
   end
