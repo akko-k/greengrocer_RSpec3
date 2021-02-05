@@ -92,15 +92,15 @@ describe ".ask_quantity" do
     ]
   end
   let(:greengrocer) { Greengrocer.new(product_params) }
-  let(:products) { greengrocer.products }
-  let(:user) { User.new }
-  let(:correct_input) { "#{products.last.id}\n" }
-  let(:chosen_product) { user.chosen_product }
+  # let(:products) { greengrocer.products }
+  # let(:user) { User.new }
+  # let(:correct_input) { "#{products.last.id}\n" }
+  let(:chosen_product) { Product.new({name: "トマト", price: 100}) }
   let(:ask_msg) { "#{chosen_product.name}ですね。何個買いますか？\n" }
   context "メソッドが実行されたとき" do
     it "userが選択した商品の名前を含む，期待した表示がされること" do
-      allow(ARGF).to receive(:gets).and_return correct_input
-      user.choose_product(products)
+      # allow(ARGF).to receive(:gets).and_return correct_input
+      # user.choose_product(products)
       expect{ greengrocer.ask_quantity(chosen_product)}.to output(ask_msg).to_stdout
     end
   end
@@ -117,7 +117,7 @@ describe ".calculate_charges" do
   let(:greengrocer) { Greengrocer.new(product_params) }
   # let(:products) { greengrocer.products } # 略しているだけ
   let(:user) { User.new }
-  let(:chosen_product){ Product.new(name: "トマト", price: 100) }
+  let(:chosen_product){ Product.new({name: "トマト", price: 100}) }
   let(:quantity_of_product) { 4 }
   let(:thank_msg) { "お買い上げありがとうございました！" }
 
