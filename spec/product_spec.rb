@@ -10,19 +10,19 @@ RSpec.describe Product do
       end
 
       it "idが正しく振られること" do
-        count = Product.class_variable_get('@@count')
+        got_id = Product.class_variable_get('@@count')
         product = Product.new(product_params)
-        expect(product.id).to eq count + 1
+        expect(product.id).to eq got_id + 1
       end 
 
       it "名前の値が正しいこと" do
         product = Product.new(product_params)
-        expect(product.name).to eq product_params[:name]
+        expect(product.name).to eq "トマト"
       end
       
       it "金額の値が正しいこと" do
         product = Product.new(product_params)
-        expect(product.price).to eq product_params[:price]
+        expect(product.price).to eq 100
       end
     end
   end
