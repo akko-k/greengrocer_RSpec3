@@ -1,15 +1,15 @@
 RSpec.describe Greengrocer do
-  
-  # ▼単体テスト2 正常系（Greengrocerクラスのインスタンス生成）
-  describe ".initialize" do
-    let(:product_params) do
+  let(:product_params) do
         [
           { name: "トマト", price: 100 },
           { name: "きゅうり", price: 200 } #不要？
         ]
     end
-    let(:greengrocer) { Greengrocer.new(product_params) }
-    let(:products) { greengrocer.products }
+  let(:greengrocer) { Greengrocer.new(product_params) }
+  let(:products) { greengrocer.products }
+  # ▼単体テスト2 正常系（Greengrocerクラスのインスタンス生成）
+  describe ".initialize" do
+    
     context "インスタンスが生成されたとき" do
       it "@productsの数とproduct_paramsの要素の数が同じであること" do
         expect(products.size).to eq 2
@@ -27,14 +27,7 @@ RSpec.describe Greengrocer do
 
   # ▼単体テスト３ 正常系(register_productメソッド)
   describe ".register_product" do
-    let(:product_params) do
-        [
-          { name: "トマト", price: 100 },
-          { name: "きゅうり", price: 200 } #不要？
-        ]
-    end
-    let(:greengrocer) { Greengrocer.new(product_params) }
-    let(:products) { greengrocer.products }
+
     context "メソッドが実行されたとき" do
       let(:adding_product_params) do
         [
@@ -61,14 +54,6 @@ RSpec.describe Greengrocer do
 
   # ▼単体テスト4 正常系(disp_productsメソッド)
   describe ".disp_products" do
-    let(:product_params) do
-        [
-          { name: "トマト", price: 100 },
-          { name: "きゅうり", price: 200 } #不要？
-        ]
-    end
-    let(:greengrocer) { Greengrocer.new(product_params) }
-    let(:products) { greengrocer.products }
     context "メソッドが実行されたとき" do
       it "出力処理ができていること" do
         base_id = Product.class_variable_get('@@count')
@@ -85,13 +70,13 @@ end
 
 # ▼単体テスト6 正常系(ask_quantityメソッド)
 describe ".ask_quantity" do
-  let(:product_params) do
-    [
-      { name: "トマト", price: 100 },
-      { name: "きゅうり", price: 200 }
-    ]
-  end
-  let(:greengrocer) { Greengrocer.new(product_params) }
+  # let(:product_params) do
+  #   [
+  #     { name: "トマト", price: 100 },
+  #     { name: "きゅうり", price: 200 }
+  #   ]
+  # end
+  # let(:greengrocer) { Greengrocer.new(product_params) }
   # let(:products) { greengrocer.products }
   # let(:user) { User.new }
   # let(:correct_input) { "#{products.last.id}\n" }
