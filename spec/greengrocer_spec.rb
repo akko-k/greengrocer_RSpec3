@@ -1,16 +1,15 @@
 RSpec.describe Greengrocer do
-  # ▼単体テスト2 正常系（Greengrocerクラスのインスタンス生成）
-  describe ".initialize" do
-    context "インスタンスが生成されたとき" do
-      let(:product_params) do
+  let(:product_params) do
         [
           { name: "トマト", price: 100 },
           { name: "きゅうり", price: 200 } #不要？
         ]
       end
-      let(:greengrocer) { Greengrocer.new(product_params) }
-      let(:products) { greengrocer.products }
-
+  let(:greengrocer) { Greengrocer.new(product_params) }
+  let(:products) { greengrocer.products }
+  # ▼単体テスト2 正常系（Greengrocerクラスのインスタンス生成）
+  describe ".initialize" do
+    context "インスタンスが生成されたとき" do
       it "@productsの数とproduct_paramsの要素の数が同じであること" do
         expect(products.size).to eq 2
       end
@@ -28,21 +27,12 @@ RSpec.describe Greengrocer do
   # ▼単体テスト３ 正常系(register_productメソッド)
   describe ".register_product" do
     context "メソッドが実行されたとき" do
-      let(:product_params) do
-        [
-          { name: "トマト", price: 100 },
-          { name: "きゅうり", price: 200 }
-        ]
-      end
       let(:adding_product_params) do
         [
           {name: "ごぼう", price: 250},
           {name: "れんこん", price: 350}
         ]
       end
-      let(:greengrocer) { Greengrocer.new(product_params) }
-      let(:products) { greengrocer.products }
-      
       it "@productsの要素の数と「product_paramsとadding_product_paramsの要素の数の和」が同じであること" do
         greengrocer.register_product(adding_product_params)
         expect(products.size).to eq 4
@@ -63,42 +53,14 @@ RSpec.describe Greengrocer do
   # ▼単体テスト4 正常系(disp_productsメソッド)
   describe ".disp_products" do
     context "メソッドが実行されたとき" do
-      let(:product_params) do
-        [
-          { name: "トマト", price: 100 },
-          { name: "きゅうり", price: 200 }
-        ]
-      end
-      let(:greengrocer) { Greengrocer.new(product_params) }
-      
       it "出力処理ができていること" do
-        id = Product.class_variable_get('@@count')
+        base_id = Product.class_variable_get('@@count')
         hello_msg = "いらっしゃいませ！商品を選んで下さい。"
-        product_msg1 = "#{id + 1}.#{ "トマト" }(¥#{100})"
-        product_msg2 = "#{id + 2}.#{ "きゅうり" }(¥#{200})"
+        product_msg1 = "#{base_id + 1}.トマト(¥100)"
+        product_msg2 = "#{base_id + 2}.きゅうり(¥200)"
+        msg = "#{hello_msg}\n#{product_msg1}\n#{product_msg2}\n"
         expect { greengrocer.disp_products }
-          .to output("#{hello_msg}\n#{product_msg1}\n#{product_msg2}\n").to_stdout
-      end
-    end
-  end
-
-  # ▼単体テスト4 正常系(disp_productsメソッド)※直接productsを指定する場合
-  describe ".disp_products" do
-    context "メソッドが実行されたとき" do
-      let(:product_params) do
-        [
-          { name: "ごぼう", price: 250 }
-        ]
-      end
-      let(:greengrocer) { Greengrocer.new(product_params) }
-      let(:products) { [ Product.new({ id: 1, name: "トマト", price: 100 }),Product.new({ id: 2, name: "きゅうり", price: 200 })] }
-      
-      it "出力処理ができていること" do
-        hello_msg = "いらっしゃいませ！商品を選んで下さい。"
-        product_msg1 = "1.#{ "トマト" }(¥#{100})"
-        product_msg2 = "2.#{ "きゅうり" }(¥#{200})"
-        expect { greengrocer.disp_products }
-          .to output("#{hello_msg}\n#{product_msg1}\n#{product_msg2}\n").to_stdout
+          .to output(msg).to_stdout
       end
     end
   end
