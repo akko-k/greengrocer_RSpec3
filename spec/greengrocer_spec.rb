@@ -64,11 +64,10 @@ RSpec.describe Greengrocer do
     end
   end
 
-
-# ▼単体テスト6 正常系(ask_quantityメソッド)
+  # ▼単体テスト6 正常系(ask_quantityメソッド)
   describe ".ask_quantity" do
-    let(:chosen_product) { Product.new({ name: "なす", price: 400 }) }
-    let(:ask_msg) { "なすですね。何個買いますか？\n" }
+    let(:chosen_product) { Product.new({ name: "玉ねぎ", price: 300 }) }
+    let(:ask_msg) { "玉ねぎですね。何個買いますか？\n" }
     context "メソッドが実行されたとき" do
       it "userが選択した商品の名前を含む，期待した表示がされること" do
         expect { greengrocer.ask_quantity(chosen_product) }.to output(ask_msg).to_stdout
@@ -76,67 +75,65 @@ RSpec.describe Greengrocer do
     end
   end
 
-# # 【単体テスト8 正常系】calculate_chargesメソッドが期待通り動作する
-# #  --> 条件分岐が複数あるので，quantity_of_productが4個のときと5個のときだけでなく，chosen_productも2種類ぐらい確認しておいた方が無難。
-# describe ".calculate_charges" do
-#   # let(:product_params) do
-#   #   [
-#   #     { name: "トマト", price: 100 },
-#   #     { name: "きゅうり", price: 200 }
-#   #   ]
-#   # end
-#   let(:greengrocer) { Greengrocer.new }
-#   # let(:products) { greengrocer.products } # 略しているだけ
-#   let(:user) { User.new }
-#   let(:discount_msg) { "5個以上なので10％割引となります！" }
-#   let(:total_price_msg){ "合計金額は#{(chosen_product.price * quantity_of_product).floor }円です。" }
-#   let(:discount_total_price_msg){ "合計金額は#{(chosen_product.price * quantity_of_product * 0.9).floor }円です。" }
-#   let(:thank_msg) { "お買い上げありがとうございました！" }
+  # 【単体テスト8 正常系】calculate_chargesメソッドが期待通り動作する
+  #  --> 条件分岐が複数あるので，quantity_of_productが4個のときと5個のときだけでなく，chosen_productも2種類ぐらい確認しておいた方が無難。
+  describe ".calculate_charges" do
+    let(:product_params) do
+      [
+        { name: "トマト", price: 100 },
+        { name: "きゅうり", price: 200 }
+      ]
+    end
+    let(:greengrocer) { Greengrocer.new(product_params) }
+    # let(:products) { greengrocer.products } # 略しているだけ
+    let(:user) { User.new }
+    let(:discount_msg) { "5個以上なので10％割引となります！" }
+    let(:thank_msg) { "お買い上げありがとうございました！" }
 
-#   context "quantity_of_productが4個，chosen_productがトマトのとき" do
-#     let(:chosen_product){ Product.new({ name: "トマト", price: 100 }) }
-#     let(:quantity_of_product) { 4 }
+    context "quantity_of_productが4個，chosen_productが玉ねぎのとき" do
+      let(:chosen_product){ Product.new({ name: "玉ねぎ", price: 300 }) }
+      let(:quantity_of_product) { 4 }
+      let(:total_price_msg){ "合計金額は#{(1200).floor }円です。" }
+      it "正しい合計金額を含む，期待した表示がされること" do
+        user.instance_variable_set("@chosen_product", chosen_product)
+        user.instance_variable_set("@quantity_of_product", quantity_of_product)
+        expect{ greengrocer.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
+      end
+    end
 
-#     it "正しい合計金額を含む，期待した表示がされること" do
-#       user.instance_variable_set("@chosen_product", chosen_product)
-#       user.instance_variable_set("@quantity_of_product", quantity_of_product)
-#       expect{ greengrocer.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
-#     end
-#   end
+    context "quantity_of_productが4個，chosen_productがなすのとき" do
+      let(:chosen_product){ Product.new({ name: "なす", price: 400 }) }
+      let(:quantity_of_product) { 4 }
+      let(:total_price_msg){ "合計金額は#{(1600).floor }円です。" }
+      it "正しい合計金額を含む，期待した表示がされること" do
+        user.instance_variable_set("@chosen_product", chosen_product)
+        user.instance_variable_set("@quantity_of_product", quantity_of_product)
+        expect{ greengrocer.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
+      end
+    end
 
-#   context "quantity_of_productが4個，chosen_productがきゅうりのとき" do
-#     let(:chosen_product){ Product.new({ name: "きゅうり", price: 200 }) }
-#     let(:quantity_of_product) { 4 }
+    context "quantity_of_productが5個，chosen_productが玉ねぎのとき" do
+      let(:chosen_product){ Product.new({ name: "玉ねぎ", price: 300 }) }
+      let(:quantity_of_product) { 5 }
+      let(:discount_total_price_msg){ "合計金額は#{(1500 * 0.9).floor }円です。" }
+      it "正しい合計金額を含む，期待した表示がされること" do
+        user.instance_variable_set("@chosen_product", chosen_product)
+        user.instance_variable_set("@quantity_of_product", quantity_of_product)
+        expect{ greengrocer.calculate_charges(user) }.to output("#{discount_msg}\n#{discount_total_price_msg}\n#{thank_msg}\n").to_stdout
+      end
+    end
 
-#     it "正しい合計金額を含む，期待した表示がされること" do
-#       user.instance_variable_set("@chosen_product", chosen_product)
-#       user.instance_variable_set("@quantity_of_product", quantity_of_product)
-#       expect{ greengrocer.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
-#     end
-#   end
-
-#   context "quantity_of_productが5個，chosen_productがトマトのとき" do
-#     let(:chosen_product){ Product.new({ name: "トマト", price: 100 }) }
-#     let(:quantity_of_product) { 5 }
-
-#     it "正しい合計金額を含む，期待した表示がされること" do
-#       user.instance_variable_set("@chosen_product", chosen_product)
-#       user.instance_variable_set("@quantity_of_product", quantity_of_product)
-#       expect{ greengrocer.calculate_charges(user) }.to output("#{discount_msg}\n#{discount_total_price_msg}\n#{thank_msg}\n").to_stdout
-#     end
-#   end
-
-#   context "quantity_of_productが5個，chosen_productがきゅうりのとき" do
-#     let(:chosen_product){ Product.new({ name: "きゅうり", price: 200 }) }
-#     let(:quantity_of_product) { 5 }
-
-#     it "正しい合計金額を含む，期待した表示がされること" do
-#       user.instance_variable_set("@chosen_product", chosen_product)
-#       user.instance_variable_set("@quantity_of_product", quantity_of_product)
-#       expect{ greengrocer.calculate_charges(user) }.to output("#{discount_msg}\n#{discount_total_price_msg}\n#{thank_msg}\n").to_stdout
-#     end
-#   end
-# end
+    context "quantity_of_productが5個，chosen_productがなすのとき" do
+      let(:chosen_product){ Product.new({ name: "なす", price: 400 }) }
+      let(:quantity_of_product) { 5 }
+      let(:discount_total_price_msg){ "合計金額は#{(2000 * 0.9).floor }円です。" }
+      it "正しい合計金額を含む，期待した表示がされること" do
+        user.instance_variable_set("@chosen_product", chosen_product)
+        user.instance_variable_set("@quantity_of_product", quantity_of_product)
+        expect{ greengrocer.calculate_charges(user) }.to output("#{discount_msg}\n#{discount_total_price_msg}\n#{thank_msg}\n").to_stdout
+      end
+    end
+  end
 end
 # # # 総合テストになっている
 # # describe ".grenngrocer_program" do #テスト名は仮
