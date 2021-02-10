@@ -78,14 +78,6 @@ RSpec.describe Greengrocer do
   # 【単体テスト8 正常系】calculate_chargesメソッドが期待通り動作する
   #  --> 条件分岐が複数あるので，quantity_of_productが4個のときと5個のときだけでなく，chosen_productも2種類ぐらい確認しておいた方が無難。
   describe ".calculate_charges" do
-    let(:product_params) do
-      [
-        { name: "トマト", price: 100 },
-        { name: "きゅうり", price: 200 }
-      ]
-    end
-    let(:greengrocer) { Greengrocer.new(product_params) }
-    # let(:products) { greengrocer.products } # 略しているだけ
     let(:user) { User.new }
     let(:discount_msg) { "5個以上なので10％割引となります！" }
     let(:thank_msg) { "お買い上げありがとうございました！" }
@@ -97,6 +89,7 @@ RSpec.describe Greengrocer do
       it "正しい合計金額を含む，期待した表示がされること" do
         user.instance_variable_set("@chosen_product", chosen_product)
         user.instance_variable_set("@quantity_of_product", quantity_of_product)
+        binding.pry
         expect{ greengrocer.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
       end
     end
