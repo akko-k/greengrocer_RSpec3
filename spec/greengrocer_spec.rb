@@ -85,7 +85,7 @@ RSpec.describe Greengrocer do
     context "quantity_of_productが4個，chosen_productが玉ねぎのとき" do
       let(:chosen_product){ Product.new({ name: "玉ねぎ", price: 300 }) }
       let(:quantity_of_product) { 4 }
-      let(:total_price_msg){ "合計金額は#{(1200).floor }円です。" }
+      let(:total_price_msg){ "合計金額は1200円です。" }
       it "正しい合計金額を含む，期待した表示がされること" do
         user.instance_variable_set("@chosen_product", chosen_product)
         user.instance_variable_set("@quantity_of_product", quantity_of_product)
@@ -96,7 +96,7 @@ RSpec.describe Greengrocer do
     context "quantity_of_productが4個，chosen_productがなすのとき" do
       let(:chosen_product){ Product.new({ name: "なす", price: 400 }) }
       let(:quantity_of_product) { 4 }
-      let(:total_price_msg){ "合計金額は#{(1600).floor }円です。" }
+      let(:total_price_msg){ "合計金額は1600円です。" }
       it "正しい合計金額を含む，期待した表示がされること" do
         user.instance_variable_set("@chosen_product", chosen_product)
         user.instance_variable_set("@quantity_of_product", quantity_of_product)
@@ -107,7 +107,7 @@ RSpec.describe Greengrocer do
     context "quantity_of_productが5個，chosen_productが玉ねぎのとき" do
       let(:chosen_product){ Product.new({ name: "玉ねぎ", price: 300 }) }
       let(:quantity_of_product) { 5 }
-      let(:discount_total_price_msg){ "合計金額は#{(1500 * 0.9).floor }円です。" }
+      let(:discount_total_price_msg){ "合計金額は1350円です。" }
       it "正しい合計金額を含む，期待した表示がされること" do
         user.instance_variable_set("@chosen_product", chosen_product)
         user.instance_variable_set("@quantity_of_product", quantity_of_product)
@@ -118,7 +118,7 @@ RSpec.describe Greengrocer do
     context "quantity_of_productが5個，chosen_productがなすのとき" do
       let(:chosen_product){ Product.new({ name: "なす", price: 400 }) }
       let(:quantity_of_product) { 5 }
-      let(:discount_total_price_msg){ "合計金額は#{(2000 * 0.9).floor }円です。" }
+      let(:discount_total_price_msg){ "合計金額は1800円です。" }
       it "正しい合計金額を含む，期待した表示がされること" do
         user.instance_variable_set("@chosen_product", chosen_product)
         user.instance_variable_set("@quantity_of_product", quantity_of_product)

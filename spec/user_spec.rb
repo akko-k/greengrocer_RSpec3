@@ -78,12 +78,12 @@ RSpec.describe User do
 
     # ▼単体テスト7 異常系(decide_quantityメソッド)※不正な値の入力に対応できているかどうかを確認
     context "0を入力したとき" do
-      let(:wrong_input) { "0" }
+      let(:wrong_input) { "0\n" }
       it_behaves_like '再入力を促すこと'
     end
 
     context "負の数字を入力したとき" do
-      let(:wrong_input) { rand(-100..-1) }
+      let(:wrong_input) { "rand(-100..-1)\n" }
       it_behaves_like '再入力を促すこと'
     end
     
