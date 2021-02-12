@@ -82,48 +82,48 @@ RSpec.describe Greengrocer do
     let(:discount_msg) { "5個以上なので10％割引となります！" }
     let(:thank_msg) { "お買い上げありがとうございました！" }
 
-    context "quantity_of_productが4個，chosen_productが玉ねぎのとき" do
-      let(:chosen_product){ Product.new({ name: "玉ねぎ", price: 300 }) }
-      let(:quantity_of_product) { 4 }
-      let(:total_price_msg){ "合計金額は1200円です。" }
+    shared_examples "正しい合計金額を含む，期待した表示がされること" do
       it "正しい合計金額を含む，期待した表示がされること" do
         user.instance_variable_set("@chosen_product", chosen_product)
         user.instance_variable_set("@quantity_of_product", quantity_of_product)
         expect{ greengrocer.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
       end
+    end
+
+    shared_examples "割引した正しい合計金額を含む，期待した表示がされること" do
+      it do
+        user.instance_variable_set("@chosen_product", chosen_product)
+        user.instance_variable_set("@quantity_of_product", quantity_of_product)
+        expect{ greengrocer.calculate_charges(user) }.to output("#{discount_msg}\n#{discount_total_price_msg}\n#{thank_msg}\n").to_stdout
+      end
+    end
+
+    context "quantity_of_productが4個，chosen_productが玉ねぎのとき" do
+      let(:chosen_product){ Product.new({ name: "玉ねぎ", price: 300 }) }
+      let(:quantity_of_product) { 4 }
+      let(:total_price_msg){ "合計金額は1200円です。" }
+      it_behaves_like "正しい合計金額を含む，期待した表示がされること"
     end
 
     context "quantity_of_productが4個，chosen_productがなすのとき" do
       let(:chosen_product){ Product.new({ name: "なす", price: 400 }) }
       let(:quantity_of_product) { 4 }
       let(:total_price_msg){ "合計金額は1600円です。" }
-      it "正しい合計金額を含む，期待した表示がされること" do
-        user.instance_variable_set("@chosen_product", chosen_product)
-        user.instance_variable_set("@quantity_of_product", quantity_of_product)
-        expect{ greengrocer.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
-      end
+      it_behaves_like "正しい合計金額を含む，期待した表示がされること"
     end
 
     context "quantity_of_productが5個，chosen_productが玉ねぎのとき" do
       let(:chosen_product){ Product.new({ name: "玉ねぎ", price: 300 }) }
       let(:quantity_of_product) { 5 }
       let(:discount_total_price_msg){ "合計金額は1350円です。" }
-      it "正しい合計金額を含む，期待した表示がされること" do
-        user.instance_variable_set("@chosen_product", chosen_product)
-        user.instance_variable_set("@quantity_of_product", quantity_of_product)
-        expect{ greengrocer.calculate_charges(user) }.to output("#{discount_msg}\n#{discount_total_price_msg}\n#{thank_msg}\n").to_stdout
-      end
+      it_behaves_like "割引した正しい合計金額を含む，期待した表示がされること"
     end
 
     context "quantity_of_productが5個，chosen_productがなすのとき" do
       let(:chosen_product){ Product.new({ name: "なす", price: 400 }) }
       let(:quantity_of_product) { 5 }
       let(:discount_total_price_msg){ "合計金額は1800円です。" }
-      it "正しい合計金額を含む，期待した表示がされること" do
-        user.instance_variable_set("@chosen_product", chosen_product)
-        user.instance_variable_set("@quantity_of_product", quantity_of_product)
-        expect{ greengrocer.calculate_charges(user) }.to output("#{discount_msg}\n#{discount_total_price_msg}\n#{thank_msg}\n").to_stdout
-      end
+      it_behaves_like "割引した正しい合計金額を含む，期待した表示がされること"
     end
   end
 end
