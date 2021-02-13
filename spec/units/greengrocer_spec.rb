@@ -26,13 +26,13 @@ RSpec.describe Greengrocer do
 
   # ▼単体テスト３ 正常系(register_productメソッド)
   describe ".register_product" do
+    let(:adding_product_params) do
+      [
+        { name: "ごぼう", price: 250 },
+        { name: "れんこん", price: 350 },
+      ]
+    end
     context "メソッドが実行されたとき" do
-      let(:adding_product_params) do
-        [
-          { name: "ごぼう", price: 250 },
-          { name: "れんこん", price: 350 },
-        ]
-      end
       it "@productsの要素の数と「product_paramsとadding_product_paramsの要素の数の和」が同じであること" do
         greengrocer.register_product(adding_product_params)
         expect(products.size).to eq 4
