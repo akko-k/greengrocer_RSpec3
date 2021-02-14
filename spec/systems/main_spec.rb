@@ -1,73 +1,103 @@
-# # 総合テスト
-# describe ".grenngrocer_program" do
-#   let(:product_params) do
-#     [
-#       { name: "トマト", price: 100 },
-#       { name: "きゅうり", price: 200 }
-#     ]
-#   end
-#   let(:greengrocer) { Greengrocer.new(product_params) }
-#   let(:products) { greengrocer.products }
-#   let(:user) { User.new }
-#   let(:chosen_product) { user.chosen_product }
-#   let(:quantity_of_product) { user.quantity_of_product }
-#   let(:thank_msg) { "お買い上げありがとうございました！" }
+# 総合テスト
+describe ".grenngrocer_program" do
+  let(:product_params) do
+    [
+      { name: "トマト", price: 100 },
+      { name: "きゅうり", price: 200 },
+    ]
+  end
+  let(:greengrocer1) { Greengrocer.new(product_params) }
+  let(:adding_product_params1) do
+    [
+      { name: "ごぼう", price: 250 },
+      { name: "れんこん", price: 350 },
+    ]
+  end
+  let(:products) { greengrocer1.products }
+  let(:user) { User.new }
+  let(:chosen_product) { user.chosen_product }
 
-#   context "quantity_of_productが4個，chosen_productが最初の要素のとき" do
-#     let(:quantity_of_product_input) { 4 }
-#     let(:select_product_num_input) { "#{products.first.id}\n" }
-#     let(:total_price_msg){ "合計金額は#{(chosen_product.price * quantity_of_product).floor }円です。" }
-#     it "正しい合計金額を含む，期待した表示がされること" do
-#       allow(ARGF).to receive(:gets).and_return select_product_num_input
-#       user.choose_product(products)
-#       allow(ARGF).to receive(:gets).and_return quantity_of_product_input
-#       user.decide_quantity
-#       greengrocer.calculate_charges(user)
-#       expect{ greengrocer.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
-#     end
-#   end
+  context "chosen_productが最初の要素，quantity_of_productが4個のとき" do
+    let(:correct_product_num_input) { "#{products.first.id}\n" }
+    let(:quantity_of_product) { user.quantity_of_product }
+    it "プログラムが最後まで動くこと" do
+      # 商品を登録（adding_products1 の商品を追加）
+      greengrocer1.register_product(adding_product_params1)
+      # 商品を表示
+      greengrocer1.disp_products
+      # 商品を選択
+      allow(ARGF).to receive(:gets).and_return correct_product_num_input
+      user.choose_product(greengrocer1.products)
+      # 個数を質問
+      greengrocer1.ask_quantity(user.chosen_product)
+      # 個数を決定
+      allow(ARGF).to receive(:gets).and_return("4\n")
+      user.decide_quantity
+      # 金額金額を計算
+      greengrocer1.calculate_charges(user)
+    end
+  end
 
-#   context "quantity_of_productが4個，chosen_productが最後の要素のとき" do
-#     let(:quantity_of_product_input) { 4 }
-#     let(:select_product_num_input) { "#{products.last.id}\n" }
-#     let(:total_price_msg){ "合計金額は#{(chosen_product.price * quantity_of_product).floor }円です。" }
-#     it "正しい合計金額を含む，期待した表示がされること" do
-#       allow(ARGF).to receive(:gets).and_return select_product_num_input
-#       user.choose_product(products)
-#       allow(ARGF).to receive(:gets).and_return quantity_of_product_input
-#       user.decide_quantity
-#       greengrocer.calculate_charges(user)
-#       expect{ greengrocer.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
-#     end
-#   end
+  context "chosen_productが最後の要素，quantity_of_productが4個のとき" do
+    let(:correct_product_num_input) { "#{products.last.id}\n" }
+    let(:quantity_of_product) { user.quantity_of_product }
+    it "プログラムが最後まで動くこと" do
+      # 商品を登録（adding_products1 の商品を追加）
+      greengrocer1.register_product(adding_product_params1)
+      # 商品を表示
+      greengrocer1.disp_products
+      # 商品を選択
+      allow(ARGF).to receive(:gets).and_return correct_product_num_input
+      user.choose_product(greengrocer1.products)
+      # 個数を質問
+      greengrocer1.ask_quantity(user.chosen_product)
+      # 個数を決定
+      allow(ARGF).to receive(:gets).and_return "4\n"
+      user.decide_quantity
+      # 金額金額を計算
+      greengrocer1.calculate_charges(user)
+    end
+  end
 
-#   context "quantity_of_productが5個，chosen_productが最初の要素のとき" do
-#     let(:quantity_of_product_input) { 5 }
-#     let(:select_product_num_input) { "#{products.first.id}\n" }
-#     let(:total_price_msg){ "合計金額は#{(chosen_product.price * quantity_of_product * 0.9).floor }円です。" }
-#     let(:discount_msg) { "5個以上なので10％割引となります！" }
-#     it "正しい合計金額を含む，期待した表示がされること" do
-#       allow(ARGF).to receive(:gets).and_return select_product_num_input
-#       user.choose_product(products)
-#       allow(ARGF).to receive(:gets).and_return quantity_of_product_input
-#       user.decide_quantity
-#       greengrocer.calculate_charges(user)
-#       expect{ greengrocer.calculate_charges(user) }.to output("#{discount_msg}\n#{total_price_msg}\n#{thank_msg}\n").to_stdout
-#     end
-#   end
+  context "chosen_productが最初の要素，quantity_of_productが5個のとき" do
+    let(:correct_product_num_input) { "#{products.first.id}\n" }
+    let(:quantity_of_product) { user.quantity_of_product }
+    it "プログラムが最後まで動くこと" do
+      # 商品を登録（adding_products1 の商品を追加）
+      greengrocer1.register_product(adding_product_params1)
+      # 商品を表示
+      greengrocer1.disp_products
+      # 商品を選択
+      allow(ARGF).to receive(:gets).and_return correct_product_num_input
+      user.choose_product(greengrocer1.products)
+      # 個数を質問
+      greengrocer1.ask_quantity(user.chosen_product)
+      # 個数を決定
+      allow(ARGF).to receive(:gets).and_return "5\n"
+      user.decide_quantity
+      # 金額金額を計算
+      greengrocer1.calculate_charges(user)
+    end
+  end
 
-#   context "quantity_of_productが5個，chosen_productが最後の要素のとき" do
-#     let(:quantity_of_product_input) { 5 }
-#     let(:select_product_num_input) { "#{products.last.id}\n" }
-#     let(:total_price_msg){ "合計金額は#{(chosen_product.price * quantity_of_product * 0.9).floor }円です。" }
-#     let(:discount_msg) { "5個以上なので10％割引となります！" }
-#     it "正しい合計金額を含む，期待した表示がされること" do
-#       allow(ARGF).to receive(:gets).and_return select_product_num_input
-#       user.choose_product(products)
-#       allow(ARGF).to receive(:gets).and_return quantity_of_product_input
-#       user.decide_quantity
-#       greengrocer.calculate_charges(user)
-#       expect{ greengrocer.calculate_charges(user) }.to output("#{discount_msg}\n#{total_price_msg}\n#{thank_msg}\n").to_stdout
-#     end
-#   end
-# end
+  context "chosen_productが最後の要素，quantity_of_productが5個のとき" do
+    let(:correct_product_num_input) { "#{products.last.id}\n" }
+    let(:quantity_of_product) { user.quantity_of_product }
+    it "プログラムが最後まで動くこと" do
+      # 商品を登録（adding_products1 の商品を追加）
+      greengrocer1.register_product(adding_product_params1)
+      # 商品を表示
+      greengrocer1.disp_products
+      # 商品を選択
+      allow(ARGF).to receive(:gets).and_return correct_product_num_input
+      user.choose_product(greengrocer1.products)
+      # 個数を質問
+      greengrocer1.ask_quantity(user.chosen_product)
+      # 個数を決定
+      allow(ARGF).to receive(:gets).and_return "5\n"
+      user.decide_quantity
+      # 金額金額を計算
+      greengrocer1.calculate_charges(user)
+    end
+  end
+end
