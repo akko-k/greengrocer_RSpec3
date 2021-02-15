@@ -1,22 +1,22 @@
-require_relative "product.rb"
-require_relative "greengrocer.rb"
-require_relative "user.rb"
+require "./lib/product.rb"
+require "./lib/greengrocer.rb"
+require "./lib/user.rb"
 require "pry"
 
 # 商品データ
 product_params1 = [
-  {name: "トマト", price: 100},
-  {name: "きゅうり", price: 200},
-  {name: "玉ねぎ", price: 300},
-  {name: "なす", price: 400}
+  { name: "トマト", price: 100 },
+  { name: "きゅうり", price: 200 },
+  { name: "玉ねぎ", price: 300 },
+  { name: "なす", price: 400 }
 ]
 
 # product_params1の商品を持つ八百屋の開店
 greengrocer1 = Greengrocer.new(product_params1)
 # 追加商品データ
 adding_product_params1 = [
-  {name: "ごぼう", price: 250},
-  {name: "れんこん", price: 350}
+  { name: "ごぼう", price: 250 },
+  { name: "れんこん", price: 350 }
 ]
 
 # 商品を登録（adding_product_params1 の商品を追加）
