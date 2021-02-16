@@ -1,6 +1,6 @@
 # 総合テスト
 describe ".grenngrocer_program" do
-  let(:product_params) do
+  let(:product_params1) do
     [
       { name: "トマト", price: 100 },
       { name: "きゅうり", price: 200 },
@@ -8,7 +8,7 @@ describe ".grenngrocer_program" do
       { name: "なす", price: 400 }
     ]
   end
-  let(:greengrocer1) { Greengrocer.new(product_params) }
+  let(:greengrocer1) { Greengrocer.new(product_params1) }
   let(:adding_product_params1) do
     [
       { name: "ごぼう", price: 250 },
