@@ -22,7 +22,7 @@ describe ".grenngrocer_program" do
   let(:thank_msg) { "お買い上げありがとうございました！" }
 
   context "chosen_productが最初の要素，quantity_of_productが4個のとき" do
-    let(:correct_product_num_input) { "#{products.first.id}\n" }
+    let(:correct_product_id_input) { "#{products.first.id}\n" }
     let(:quantity_of_product) { user.quantity_of_product }
     let(:total_price_msg){ "合計金額は400円です。" }
 
@@ -32,7 +32,7 @@ describe ".grenngrocer_program" do
       # 商品を表示
       greengrocer1.disp_products
       # 商品を選択
-      allow(ARGF).to receive(:gets).and_return correct_product_num_input
+      allow(ARGF).to receive(:gets).and_return correct_product_id_input
       user.choose_product(greengrocer1.products)
       # 個数を質問
       greengrocer1.ask_quantity(user.chosen_product)
@@ -45,7 +45,7 @@ describe ".grenngrocer_program" do
   end
 
   context "chosen_productが最後の要素，quantity_of_productが4個のとき" do
-    let(:correct_product_num_input) { "#{products.last.id}\n" }
+    let(:correct_product_id_input) { "#{products.last.id}\n" }
     let(:quantity_of_product) { user.quantity_of_product }
     let(:total_price_msg){ "合計金額は1400円です。" }
 
@@ -55,7 +55,7 @@ describe ".grenngrocer_program" do
       # 商品を表示
       greengrocer1.disp_products
       # 商品を選択
-      allow(ARGF).to receive(:gets).and_return correct_product_num_input
+      allow(ARGF).to receive(:gets).and_return correct_product_id_input
       user.choose_product(greengrocer1.products)
       # 個数を質問
       greengrocer1.ask_quantity(user.chosen_product)
@@ -68,7 +68,7 @@ describe ".grenngrocer_program" do
   end
 
   context "chosen_productが最初の要素，quantity_of_productが5個のとき" do
-    let(:correct_product_num_input) { "#{products.first.id}\n" }
+    let(:correct_product_id_input) { "#{products.first.id}\n" }
     let(:quantity_of_product) { user.quantity_of_product }
     let(:discount_total_price_msg){ "合計金額は450円です。" }
 
@@ -78,7 +78,7 @@ describe ".grenngrocer_program" do
       # 商品を表示
       greengrocer1.disp_products
       # 商品を選択
-      allow(ARGF).to receive(:gets).and_return correct_product_num_input
+      allow(ARGF).to receive(:gets).and_return correct_product_id_input
       user.choose_product(greengrocer1.products)
       # 個数を質問
       greengrocer1.ask_quantity(user.chosen_product)
@@ -91,7 +91,7 @@ describe ".grenngrocer_program" do
   end
 
   context "chosen_productが最後の要素，quantity_of_productが5個のとき" do
-    let(:correct_product_num_input) { "#{products.last.id}\n" }
+    let(:correct_product_id_input) { "#{products.last.id}\n" }
     let(:quantity_of_product) { user.quantity_of_product }
     let(:discount_total_price_msg){ "合計金額は1575円です。" }
 
@@ -101,7 +101,7 @@ describe ".grenngrocer_program" do
       # 商品を表示
       greengrocer1.disp_products
       # 商品を選択
-      allow(ARGF).to receive(:gets).and_return correct_product_num_input
+      allow(ARGF).to receive(:gets).and_return correct_product_id_input
       user.choose_product(greengrocer1.products)
       # 個数を質問
       greengrocer1.ask_quantity(user.chosen_product)

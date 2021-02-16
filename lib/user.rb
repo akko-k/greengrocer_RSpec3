@@ -4,8 +4,8 @@ class User
     def choose_product(products)
       while true
         print "商品の番号を選択 >"
-        select_product_num = gets.to_i
-        @chosen_product = products.find{|product| product.id == select_product_num}
+        select_product_id = gets.to_i
+        @chosen_product = products.find{|product| product.id == select_product_id}
         break if !@chosen_product.nil?
         puts "#{products.first.id}から#{products.last.id}の番号から選んでください。"
       end
