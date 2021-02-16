@@ -26,7 +26,7 @@ describe ".grenngrocer_program" do
     let(:quantity_of_product) { user.quantity_of_product }
     let(:total_price_msg){ "合計金額は400円です。" }
 
-    it "プログラムが最後まで動くこと" do
+    it "正しい合計金額を含む，期待した表示がされること" do
       # 商品を登録（adding_product_params1 の商品を追加）
       greengrocer1.register_product(adding_product_params1)
       # 商品を表示
@@ -49,7 +49,7 @@ describe ".grenngrocer_program" do
     let(:quantity_of_product) { user.quantity_of_product }
     let(:total_price_msg){ "合計金額は1400円です。" }
 
-    it "プログラムが最後まで動くこと" do
+    it "正しい合計金額を含む，期待した表示がされること" do
       # 商品を登録（adding_product_params1 の商品を追加）
       greengrocer1.register_product(adding_product_params1)
       # 商品を表示
@@ -72,7 +72,7 @@ describe ".grenngrocer_program" do
     let(:quantity_of_product) { user.quantity_of_product }
     let(:discount_total_price_msg){ "合計金額は450円です。" }
 
-    it "プログラムが最後まで動くこと" do
+    it "割引した正しい合計金額を含む，期待した表示がされること" do
       # 商品を登録（adding_product_params1 の商品を追加）
       greengrocer1.register_product(adding_product_params1)
       # 商品を表示
@@ -95,7 +95,7 @@ describe ".grenngrocer_program" do
     let(:quantity_of_product) { user.quantity_of_product }
     let(:discount_total_price_msg){ "合計金額は1575円です。" }
 
-    it "プログラムが最後まで動くこと" do
+    it "割引した正しい合計金額を含む，期待した表示がされること" do
       # 商品を登録（adding_product_params1 の商品を追加）
       greengrocer1.register_product(adding_product_params1)
       # 商品を表示
