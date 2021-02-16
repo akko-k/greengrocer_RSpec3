@@ -2,11 +2,11 @@ RSpec.describe User do
   let(:user) { User.new }
   # 不要 ▼単体テスト 正常系（Userクラスのインスタンス生成）
   # ▼単体テスト5
-  describe ".choose_product" do   
+  describe ".choose_product" do
     let(:product_params) do
       [
         { name: "トマト", price: 100 },
-        { name: "きゅうり", price: 200 }
+        { name: "きゅうり", price: 200 },
       ]
     end
     let(:greengrocer) { Greengrocer.new(product_params) }
@@ -23,13 +23,13 @@ RSpec.describe User do
 
     # ▼単体テスト5 正常系(choose_productメソッド)
     context "存在するidを入力したとき" do
-      it '@chosen_productとproduct_paramsの名前と同じであること' do
+      it "@chosen_productとproduct_paramsの名前と同じであること" do
         allow(ARGF).to receive(:gets).and_return correct_product_id_input
         user.choose_product(products)
         expect(user.chosen_product.name).to eq "トマト"
       end
 
-      it '@chosen_productとproduct_paramsの金額が同じであること' do
+      it "@chosen_productとproduct_paramsの金額が同じであること" do
         allow(ARGF).to receive(:gets).and_return correct_product_id_input
         user.choose_product(products)
         expect(user.chosen_product.price).to eq 100
@@ -46,13 +46,13 @@ RSpec.describe User do
       let(:wrong_product_id_input) { "#{products.last.id + 1}\n" }
       it_behaves_like "再入力を促すこと"
     end
-    
+
     context "数値以外の文字列を入力したとき" do
       let(:wrong_product_id_input) { "hoge\n" }
       it_behaves_like "再入力を促すこと"
     end
   end
-  
+
   # ▼単体テスト7
   describe ".decide_quantity" do
     let(:correct_product_id_input) { "#{rand(1..100)}\n" }
@@ -67,7 +67,7 @@ RSpec.describe User do
 
     # ▼単体テスト7 正常系(decide_quantityメソッド)
     context "1以上の数字を入力したとき" do
-      it '@quantity_of_productと入力値が等しいこと' do
+      it "@quantity_of_productと入力値が等しいこと" do
         allow(ARGF).to receive(:gets).and_return correct_product_id_input
         user.decide_quantity
         expect(user.quantity_of_product).to eq correct_product_id_input.to_i
@@ -84,7 +84,7 @@ RSpec.describe User do
       let(:wrong_product_id_input) { "#{rand(-100..-1)}\n" }
       it_behaves_like "再入力を促すこと"
     end
-    
+
     context "数字以外の文字列を入力したとき" do
       let(:wrong_product_id_input) { "hoge\n" }
       it_behaves_like "再入力を促すこと"

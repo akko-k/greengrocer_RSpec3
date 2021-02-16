@@ -1,3 +1,4 @@
+# encoding: utf-8
 # spec_helperを読み込む
 --require spec_helper
 # 出力結果をドキュメント風にして見やすくする
