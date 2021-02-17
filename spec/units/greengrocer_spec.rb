@@ -79,7 +79,6 @@ RSpec.describe Greengrocer do
   #  --> 条件分岐が複数あるので，quantity_of_productが4個のときと5個のときだけでなく，chosen_productも2種類ぐらい確認しておいた方が無難。
   describe ".calculate_charges" do
     let(:user) { User.new }
-    let(:discount_msg) { "5個以上なので10％割引となります！" }
     let(:thank_msg) { "お買い上げありがとうございました！" }
 
     shared_examples "正しい合計金額を含む，期待した表示がされること" do
@@ -115,6 +114,7 @@ RSpec.describe Greengrocer do
     context "quantity_of_productが5個，chosen_productが玉ねぎのとき" do
       let(:chosen_product) { Product.new({ name: "玉ねぎ", price: 300 }) }
       let(:quantity_of_product) { 5 }
+      let(:discount_msg) { "5個以上なので10％割引となります！" }
       let(:discount_total_price_msg) { "合計金額は1350円です。" }
       it_behaves_like "割引した正しい合計金額を含む，期待した表示がされること"
     end
@@ -122,6 +122,7 @@ RSpec.describe Greengrocer do
     context "quantity_of_productが5個，chosen_productがなすのとき" do
       let(:chosen_product) { Product.new({ name: "なす", price: 400 }) }
       let(:quantity_of_product) { 5 }
+      let(:discount_msg) { "5個以上なので10％割引となります！" }
       let(:discount_total_price_msg) { "合計金額は1800円です。" }
       it_behaves_like "割引した正しい合計金額を含む，期待した表示がされること"
     end
