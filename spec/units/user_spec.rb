@@ -55,12 +55,12 @@ RSpec.describe User do
 
   # ▼単体テスト7
   describe ".decide_quantity" do
-    let(:correct_product_id_input) { "#{rand(1..100)}\n" }
+    let(:correct_quantity_input) { "#{rand(1..100)}\n" }
     let(:pronpt_re_enter_msg) { /１個以上選んでください。/ }
 
     shared_examples "再入力を促すこと" do
       it do
-        allow(ARGF).to receive(:gets).and_return wrong_product_id_input, correct_product_id_input
+        allow(ARGF).to receive(:gets).and_return wrong_quantity_input, correct_quantity_input
         expect { user.decide_quantity }.to output(pronpt_re_enter_msg).to_stdout
       end
     end
@@ -68,25 +68,25 @@ RSpec.describe User do
     # ▼単体テスト7 正常系(decide_quantityメソッド)
     context "1以上の数字を入力したとき" do
       it "@quantity_of_productと入力値が等しいこと" do
-        allow(ARGF).to receive(:gets).and_return correct_product_id_input
+        allow(ARGF).to receive(:gets).and_return correct_quantity_input
         user.decide_quantity
-        expect(user.quantity_of_product).to eq correct_product_id_input.to_i
+        expect(user.quantity_of_product).to eq correct_quantity_input.to_i
       end
     end
 
     # ▼単体テスト7 異常系(decide_quantityメソッド)※不正な値の入力に対応できているかどうかを確認
     context "0を入力したとき" do
-      let(:wrong_product_id_input) { "0\n" }
+      let(:wrong_quantity_input) { "0\n" }
       it_behaves_like "再入力を促すこと"
     end
 
     context "負の数字を入力したとき" do
-      let(:wrong_product_id_input) { "#{rand(-100..-1)}\n" }
+      let(:wrong_quantity_input) { "#{rand(-100..-1)}\n" }
       it_behaves_like "再入力を促すこと"
     end
 
     context "数字以外の文字列を入力したとき" do
-      let(:wrong_product_id_input) { "hoge\n" }
+      let(:wrong_quantity_input) { "hoge\n" }
       it_behaves_like "再入力を促すこと"
     end
   end

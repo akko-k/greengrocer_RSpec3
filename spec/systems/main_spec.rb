@@ -17,11 +17,11 @@ describe ".grenngrocer_program" do
   end
   let(:products) { greengrocer1.products }
   let(:user) { User.new }
-  let(:discount_msg) { "5個以上なので10％割引となります！" }
   let(:thank_msg) { "お買い上げありがとうございました！" }
 
   context "chosen_productが最初の要素，quantity_of_productが4個のとき" do
     let(:correct_product_id_input) { "#{products.first.id}\n" }
+    let(:correct_quantity_input) { "4\n" }
     let(:total_price_msg){ "合計金額は400円です。" }
 
     it "正しい合計金額を含む，期待した表示がされること" do
@@ -31,11 +31,11 @@ describe ".grenngrocer_program" do
       greengrocer1.disp_products
       # 商品を選択
       allow(ARGF).to receive(:gets).and_return correct_product_id_input
-      user.choose_product(greengrocer1.products)
+      user.choose_product(products)
       # 個数を質問
       greengrocer1.ask_quantity(user.chosen_product)
       # 個数を決定
-      allow(ARGF).to receive(:gets).and_return("4\n")
+      allow(ARGF).to receive(:gets).and_return correct_quantity_input
       user.decide_quantity
       # 金額金額を計算
       expect{ greengrocer1.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
@@ -44,6 +44,7 @@ describe ".grenngrocer_program" do
 
   context "chosen_productが最後の要素，quantity_of_productが4個のとき" do
     let(:correct_product_id_input) { "#{products.last.id}\n" }
+    let(:correct_quantity_input) { "4\n" }
     let(:total_price_msg){ "合計金額は1400円です。" }
 
     it "正しい合計金額を含む，期待した表示がされること" do
@@ -53,11 +54,11 @@ describe ".grenngrocer_program" do
       greengrocer1.disp_products
       # 商品を選択
       allow(ARGF).to receive(:gets).and_return correct_product_id_input
-      user.choose_product(greengrocer1.products)
+      user.choose_product(products)
       # 個数を質問
       greengrocer1.ask_quantity(user.chosen_product)
       # 個数を決定
-      allow(ARGF).to receive(:gets).and_return "4\n"
+      allow(ARGF).to receive(:gets).and_return correct_quantity_input
       user.decide_quantity
       # 金額金額を計算
       expect{ greengrocer1.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
@@ -66,6 +67,8 @@ describe ".grenngrocer_program" do
 
   context "chosen_productが最初の要素，quantity_of_productが5個のとき" do
     let(:correct_product_id_input) { "#{products.first.id}\n" }
+    let(:correct_quantity_input) { "5\n" }
+    let(:discount_msg) { "5個以上なので10％割引となります！" }
     let(:discount_total_price_msg){ "合計金額は450円です。" }
 
     it "割引した正しい合計金額を含む，期待した表示がされること" do
@@ -75,11 +78,11 @@ describe ".grenngrocer_program" do
       greengrocer1.disp_products
       # 商品を選択
       allow(ARGF).to receive(:gets).and_return correct_product_id_input
-      user.choose_product(greengrocer1.products)
+      user.choose_product(products)
       # 個数を質問
       greengrocer1.ask_quantity(user.chosen_product)
       # 個数を決定
-      allow(ARGF).to receive(:gets).and_return "5\n"
+      allow(ARGF).to receive(:gets).and_return correct_quantity_input
       user.decide_quantity
       # 金額金額を計算
       expect{ greengrocer1.calculate_charges(user) }.to output("#{discount_msg}\n#{discount_total_price_msg}\n#{thank_msg}\n").to_stdout
@@ -88,6 +91,8 @@ describe ".grenngrocer_program" do
 
   context "chosen_productが最後の要素，quantity_of_productが5個のとき" do
     let(:correct_product_id_input) { "#{products.last.id}\n" }
+    let(:correct_quantity_input) { "5\n" }
+    let(:discount_msg) { "5個以上なので10％割引となります！" }
     let(:discount_total_price_msg){ "合計金額は1575円です。" }
     
     it "割引した正しい合計金額を含む，期待した表示がされること" do
@@ -97,11 +102,11 @@ describe ".grenngrocer_program" do
       greengrocer1.disp_products
       # 商品を選択
       allow(ARGF).to receive(:gets).and_return correct_product_id_input
-      user.choose_product(greengrocer1.products)
+      user.choose_product(products)
       # 個数を質問
       greengrocer1.ask_quantity(user.chosen_product)
       # 個数を決定
-      allow(ARGF).to receive(:gets).and_return "5\n"
+      allow(ARGF).to receive(:gets).and_return correct_quantity_input
       user.decide_quantity
       # 金額金額を計算
       expect{ greengrocer1.calculate_charges(user) }.to output("#{discount_msg}\n#{discount_total_price_msg}\n#{thank_msg}\n").to_stdout
