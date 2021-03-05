@@ -2,7 +2,7 @@ RSpec.describe Greengrocer do
   let(:product_params) do
     [
       { name: "トマト", price: 100 },
-      { name: "きゅうり", price: 200 }, #不要？
+      { name: "きゅうり", price: 200 }
     ]
   end
   let(:greengrocer) { Greengrocer.new(product_params) }
@@ -32,35 +32,31 @@ RSpec.describe Greengrocer do
         { name: "れんこん", price: 350 },
       ]
     end
-    context "メソッドが実行されたとき" do
-      it "@productsの要素の数と「product_paramsとadding_product_paramsの要素の数の和」が同じであること" do
-        greengrocer.register_product(adding_product_params)
-        expect(products.size).to eq 4
-      end
+    it "@productsの要素の数と「product_paramsとadding_product_paramsの要素の数の和」が同じであること" do
+      greengrocer.register_product(adding_product_params)
+      expect(products.size).to eq 4
+    end
 
-      it "@productsの最後の要素とadding_product_paramsの最後の要素の名前が同じであること" do
-        greengrocer.register_product(adding_product_params)
-        expect(products[-1].name).to eq "れんこん"
-      end
+    it "@productsの最後の要素とadding_product_paramsの最後の要素の名前が同じであること" do
+      greengrocer.register_product(adding_product_params)
+      expect(products[-1].name).to eq "れんこん"
+    end
 
-      it "@productsの最後の要素とadding_product_paramsの最後の要素の名前が同じであること" do
-        greengrocer.register_product(adding_product_params)
-        expect(products[-1].price).to eq 350
-      end
+    it "@productsの最後の要素とadding_product_paramsの最後の要素の名前が同じであること" do
+      greengrocer.register_product(adding_product_params)
+      expect(products[-1].price).to eq 350
     end
   end
 
   # ▼単体テスト4 正常系(disp_productsメソッド)
   describe ".disp_products" do
-    context "メソッドが実行されたとき" do
-      it "出力処理ができていること" do
-        base_id = Product.class_variable_get("@@count")
-        hello_msg = "いらっしゃいませ！商品を選んで下さい。"
-        product_msg1 = "#{base_id + 1}.トマト(¥100)"
-        product_msg2 = "#{base_id + 2}.きゅうり(¥200)"
-        msg = "#{hello_msg}\n#{product_msg1}\n#{product_msg2}\n"
-        expect { greengrocer.disp_products }.to output(msg).to_stdout
-      end
+    it "出力処理ができていること" do
+      base_id = Product.class_variable_get("@@count")
+      hello_msg = "いらっしゃいませ！商品を選んで下さい。"
+      product_msg1 = "#{base_id + 1}.トマト(¥100)"
+      product_msg2 = "#{base_id + 2}.きゅうり(¥200)"
+      msg = "#{hello_msg}\n#{product_msg1}\n#{product_msg2}\n"
+      expect { greengrocer.disp_products }.to output(msg).to_stdout
     end
   end
 
@@ -68,10 +64,8 @@ RSpec.describe Greengrocer do
   describe ".ask_quantity" do
     let(:chosen_product) { Product.new({ name: "玉ねぎ", price: 300 }) }
     let(:ask_msg) { "玉ねぎですね。何個買いますか？\n" }
-    context "メソッドが実行されたとき" do
-      it "userが選択した商品の名前を含む，期待した表示がされること" do
-        expect { greengrocer.ask_quantity(chosen_product) }.to output(ask_msg).to_stdout
-      end
+    it "userが選択した商品の名前を含む，期待した表示がされること" do
+      expect { greengrocer.ask_quantity(chosen_product) }.to output(ask_msg).to_stdout
     end
   end
 
