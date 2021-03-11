@@ -14,11 +14,11 @@ RSpec.describe Greengrocer do
         expect(products.size).to eq 2
       end
 
-      it "@productsとproduct_paramsそれぞれの1つ目の要素の名前が同じであること" do
+      it "@productsとproduct_paramsそれぞれの最初の要素の名前が同じであること" do
         expect(products[0].name).to eq "トマト"
       end
 
-      it "@productsとproduct_paramsそれぞれの要素の金額が同じであること" do
+      it "@productsとproduct_paramsそれぞれの最初の要素の金額が同じであること" do
         expect(products[0].price).to eq 100
       end
     end
