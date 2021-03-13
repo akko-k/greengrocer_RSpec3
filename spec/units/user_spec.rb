@@ -3,14 +3,12 @@ RSpec.describe User do
   # 不要 ▼単体テスト 正常系（Userクラスのインスタンス生成）
   # ▼単体テスト5
   describe ".choose_product" do
-    let(:product_params) do
+    let(:products) do
       [
-        { name: "トマト", price: 100 },
-        { name: "きゅうり", price: 200 },
+        Product.new({ name: "トマト", price: 100 }),
+        Product.new({ name: "きゅうり", price: 200 })
       ]
     end
-    let(:greengrocer) { Greengrocer.new(product_params) }
-    let(:products) { greengrocer.products }
     let(:correct_product_id_input) { "#{products.first.id}\n" }
     let(:pronpt_re_enter_msg) { /#{products.first.id}から#{products.last.id}の番号から選んでください。/ }
 
