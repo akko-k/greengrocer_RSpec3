@@ -21,22 +21,17 @@ RSpec.describe User do
 
     # ▼単体テスト5 正常系(choose_productメソッド)
     context "存在するid（productsの最初の要素のid）を入力したとき" do
-
-      it "@chosen_productのidとproductsの最初の要素のidが同じであること" do
+      before do
         allow(ARGF).to receive(:gets).and_return correct_product_id_input
         user.choose_product(products)
+      end
+      it "@chosen_productのidとproductsの最初の要素のidが同じであること" do
         expect(user.chosen_product.id).to eq correct_product_id_input.to_i
       end
-
       it "@chosen_productの名前とproductsの最初の要素の名前が同じであること" do
-        allow(ARGF).to receive(:gets).and_return correct_product_id_input
-        user.choose_product(products)
         expect(user.chosen_product.name).to eq "トマト"
       end
-
       it "@chosen_productの金額とproductsの最初の要素の金額が同じであること" do
-        allow(ARGF).to receive(:gets).and_return correct_product_id_input
-        user.choose_product(products)
         expect(user.chosen_product.price).to eq 100
       end
     end
