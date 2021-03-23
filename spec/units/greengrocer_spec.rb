@@ -50,12 +50,12 @@ RSpec.describe Greengrocer do
 
   # ▼単体テスト4 正常系(disp_productsメソッド)
   describe ".disp_products" do
+    let(:base_id) { Product.class_variable_get("@@count") }
+    let(:hello_msg) { "いらっしゃいませ！商品を選んで下さい。" }
+    let(:product_msg1) { "#{base_id + 1}.トマト(¥100)" }
+    let(:product_msg2) { "#{base_id + 2}.きゅうり(¥200)" }
+    let(:msg) { "#{hello_msg}\n#{product_msg1}\n#{product_msg2}\n" }
     it "期待した表示がされること" do
-      base_id = Product.class_variable_get("@@count")
-      hello_msg = "いらっしゃいませ！商品を選んで下さい。"
-      product_msg1 = "#{base_id + 1}.トマト(¥100)"
-      product_msg2 = "#{base_id + 2}.きゅうり(¥200)"
-      msg = "#{hello_msg}\n#{product_msg1}\n#{product_msg2}\n"
       expect { greengrocer.disp_products }.to output(msg).to_stdout
     end
   end
