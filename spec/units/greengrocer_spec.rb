@@ -50,7 +50,7 @@ RSpec.describe Greengrocer do
 
   # ▼単体テスト4 正常系(disp_productsメソッド)
   describe ".disp_products" do
-    it "出力処理ができていること" do
+    it "期待した表示がされること" do
       base_id = Product.class_variable_get("@@count")
       hello_msg = "いらっしゃいませ！商品を選んで下さい。"
       product_msg1 = "#{base_id + 1}.トマト(¥100)"
