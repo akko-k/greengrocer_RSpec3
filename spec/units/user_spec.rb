@@ -10,14 +10,6 @@ RSpec.describe User do
       ]
     end
     let(:correct_product_id_input) { "#{products.first.id}\n" }
-    let(:pronpt_re_enter_msg) { /#{products.first.id}から#{products.last.id}の番号から選んでください。/ }
-
-    shared_examples "再入力を促すこと" do
-      it do
-        allow(ARGF).to receive(:gets).and_return wrong_product_id_input, correct_product_id_input
-        expect { user.choose_product(products) }.to output(pronpt_re_enter_msg).to_stdout
-      end
-    end
 
     # ▼単体テスト5 正常系(choose_productメソッド)
     context "存在するid（productsの最初の要素のid）を入力したとき" do
@@ -25,6 +17,7 @@ RSpec.describe User do
         allow(ARGF).to receive(:gets).and_return correct_product_id_input
         user.choose_product(products)
       end
+      
       it "@chosen_productのidとproductsの最初の要素のidが同じであること" do
         expect(user.chosen_product.id).to eq correct_product_id_input.to_i
       end
@@ -37,6 +30,15 @@ RSpec.describe User do
     end
 
     # ▼単体テスト5 異常系(choose_productメソッド)※不正な値の入力に対応できているかどうかを確認
+    let(:pronpt_re_enter_msg) { /#{products.first.id}から#{products.last.id}の番号から選んでください。/ }
+
+    shared_examples "再入力を促すこと" do
+      it do
+        allow(ARGF).to receive(:gets).and_return wrong_product_id_input, correct_product_id_input
+        expect { user.choose_product(products) }.to output(pronpt_re_enter_msg).to_stdout
+      end
+    end
+
     context "商品一覧の最初のidより１小さい数の文字列を入力したとき" do
       let(:wrong_product_id_input) { "#{products.first.id - 1}\n" }
       it_behaves_like "再入力を促すこと"
