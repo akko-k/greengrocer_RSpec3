@@ -4,22 +4,22 @@ RSpec.describe Product do
     context "インスタンスが生成されたとき" do
       let(:product_params) { { name: "トマト", price: 100 } }
       let(:product) { Product.new(product_params) }
-      let(:base_id) { Product.class_variable_get("@@count") }
+      let!(:base_id) { Product.class_variable_get("@@count") }
 
       it "@@countが1増加すること" do
         expect { Product.new(product_params) }
           .to change { Product.class_variable_get("@@count") }.by(1)
       end
 
-      it "idが正しく振られること" do
-        expect(product.id).to eq base_id
+      it "@idがインスタンス生成前の@@count+1の値に等しいこと" do
+        expect(product.id).to eq base_id + 1
       end
 
-      it "名前の値が正しいこと" do
+      it "@nameがproduct_paramsの名前と等しいこと" do
         expect(product.name).to eq "トマト"
       end
 
-      it "金額の値が正しいこと" do
+      it "@priceがproduct_paramsの金額と等しいこと" do
         expect(product.price).to eq 100
       end
     end
