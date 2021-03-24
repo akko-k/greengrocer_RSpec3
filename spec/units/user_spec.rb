@@ -18,13 +18,13 @@ RSpec.describe User do
         user.choose_product(products)
       end
       
-      it "@chosen_productのidとproductsの最初の要素のidが同じであること" do
+      it "@chosen_productのidと，productsの最初の要素のidが同じであること" do
         expect(user.chosen_product.id).to eq correct_product_id_input.to_i
       end
-      it "@chosen_productの名前とproductsの最初の要素の名前が同じであること" do
+      it "@chosen_productの名前と，productsの最初の要素の名前が同じであること" do
         expect(user.chosen_product.name).to eq "トマト"
       end
-      it "@chosen_productの金額とproductsの最初の要素の金額が同じであること" do
+      it "@chosen_productの金額と，productsの最初の要素の金額が同じであること" do
         expect(user.chosen_product.price).to eq 100
       end
     end
