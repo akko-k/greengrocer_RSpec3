@@ -18,13 +18,13 @@ RSpec.describe User do
         user.choose_product(products)
       end
       
-      it "@chosen_productのidと，productsの最初の要素のidが同じであること" do
+      it "@chosen_productのidが，productsの最初の要素のidと等しいこと" do
         expect(user.chosen_product.id).to eq correct_product_id_input.to_i
       end
-      it "@chosen_productの名前と，productsの最初の要素の名前が同じであること" do
+      it "@chosen_productの名前が，productsの最初の要素の名前と等しいこと" do
         expect(user.chosen_product.name).to eq "トマト"
       end
-      it "@chosen_productの金額と，productsの最初の要素の金額が同じであること" do
+      it "@chosen_productの金額が，productsの最初の要素の金額と等しいこと" do
         expect(user.chosen_product.price).to eq 100
       end
     end
@@ -61,7 +61,7 @@ RSpec.describe User do
 
     # ▼単体テスト7 正常系(decide_quantityメソッド)
     context "1以上の数字を入力したとき" do
-      it "@quantity_of_productと入力値が等しいこと" do
+      it "@quantity_of_productが，入力値を整数化した値と等しいこと" do
         allow(ARGF).to receive(:gets).and_return correct_quantity_input
         user.decide_quantity
         expect(user.quantity_of_product).to eq correct_quantity_input.to_i
