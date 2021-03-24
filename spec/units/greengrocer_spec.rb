@@ -10,15 +10,15 @@ RSpec.describe Greengrocer do
   # ▼単体テスト2 正常系（Greengrocerクラスのインスタンス生成）
   describe ".initialize" do
     context "インスタンスが生成されたとき" do
-      it "@productsの要素の数が，product_paramsの要素の数に等しいこと" do
+      it "@productsの要素の数が，product_paramsの要素の数と等しいこと" do
         expect(products.size).to eq 2
       end
 
-      it "@productsの最初の要素の名前が，product_paramsの最初の要素の名前に等しいこと" do
+      it "@productsの最初の要素の名前が，product_paramsの最初の要素の名前と等しいこと" do
         expect(products[0].name).to eq "トマト"
       end
 
-      it "@productsの最初の要素の金額が，product_paramsの最初の要素の金額に等しいこと" do
+      it "@productsの最初の要素の金額が，product_paramsの最初の要素の金額と等しいこと" do
         expect(products[0].price).to eq 100
       end
     end
@@ -35,7 +35,7 @@ RSpec.describe Greengrocer do
 
     before { greengrocer.register_product(adding_product_params) }
 
-    it "@productsの要素の数が，「product_paramsとadding_product_paramsの要素の数の和」に等しいこと" do
+    it "@productsの要素の数が，「product_paramsとadding_product_paramsの要素の数の和」と等しいこと" do
       expect(products.size).to eq 4
     end
 
@@ -43,7 +43,7 @@ RSpec.describe Greengrocer do
       expect(products[-1].name).to eq "れんこん"
     end
 
-    it "@productsの最後の要素の金額が，adding_product_paramsの最後の要素の金額に等しいこと" do
+    it "@productsの最後の要素の金額が，adding_product_paramsの最後の要素の金額と等しいこと" do
       expect(products[-1].price).to eq 350
     end
   end
