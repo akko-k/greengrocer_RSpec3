@@ -19,7 +19,7 @@ RSpec.describe Product do
         expect(product.name).to eq "トマト"
       end
 
-      it "商品のpriceが，product_paramsの金額と等しいこと" do
+      it "商品の@priceが，product_paramsの金額と等しいこと" do
         expect(product.price).to eq 100
       end
     end
