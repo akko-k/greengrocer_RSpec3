@@ -91,21 +91,21 @@ RSpec.describe Greengrocer do
       end
     end
 
-    context "chosen_productが玉ねぎ，quantity_of_productが4個のとき" do
+    context "300円の商品（玉ねぎ）が4個のとき" do
       let(:chosen_product) { Product.new({ name: "玉ねぎ", price: 300 }) }
       let(:quantity_of_product) { 4 }
       let(:total_price_msg) { "合計金額は1200円です。" }
       it_behaves_like "正しい合計金額を含む，期待する表示がされること"
     end
 
-    context "chosen_productがなす，quantity_of_productが4個のとき" do
+    context "400円の商品（なす）が4個のとき" do
       let(:chosen_product) { Product.new({ name: "なす", price: 400 }) }
       let(:quantity_of_product) { 4 }
       let(:total_price_msg) { "合計金額は1600円です。" }
       it_behaves_like "正しい合計金額を含む，期待する表示がされること"
     end
 
-    context "chosen_productが玉ねぎ，quantity_of_productが5個のとき" do
+    context "300円の商品（玉ねぎ）が5個のとき" do
       let(:chosen_product) { Product.new({ name: "玉ねぎ", price: 300 }) }
       let(:quantity_of_product) { 5 }
       let(:discount_msg) { "5個以上なので10％割引となります！" }
@@ -113,7 +113,7 @@ RSpec.describe Greengrocer do
       it_behaves_like "割引した正しい合計金額を含む，期待する表示がされること"
     end
 
-    context "chosen_productがなす，quantity_of_productが5個のとき" do
+    context "400円の商品（なす）が5個のとき" do
       let(:chosen_product) { Product.new({ name: "なす", price: 400 }) }
       let(:quantity_of_product) { 5 }
       let(:discount_msg) { "5個以上なので10％割引となります！" }
