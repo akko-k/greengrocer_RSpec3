@@ -39,12 +39,12 @@ RSpec.describe User do
       end
     end
 
-    context "商品一覧の最初のidより１小さい数の文字列を入力したとき" do
+    context "商品一覧の最初のidより１小さい数字を入力したとき" do
       let(:wrong_product_id_input) { "#{products.first.id - 1}\n" }
       it_behaves_like "再入力を促すこと"
     end
 
-    context "商品一覧の最後のidより１大きい数の文字列を入力したとき" do
+    context "商品一覧の最後のidより１大きい数字を入力したとき" do
       let(:wrong_product_id_input) { "#{products.last.id + 1}\n" }
       it_behaves_like "再入力を促すこと"
     end
@@ -57,18 +57,28 @@ RSpec.describe User do
 
   # ▼単体テスト7
   describe ".decide_quantity" do
-    let(:correct_quantity_input) { "#{rand(1..100)}\n" }
-
     # ▼単体テスト7 正常系(decide_quantityメソッド)
-    context "1以上の数字を入力したとき" do
-      it "@quantity_of_productが，入力値を整数化した値と等しいこと" do
+
+    shared_examples "@quantity_of_productが，入力値を整数化した値と等しいこと" do
+      it do
         allow(ARGF).to receive(:gets).and_return correct_quantity_input
         user.decide_quantity
         expect(user.quantity_of_product).to eq correct_quantity_input.to_i
       end
     end
 
-    # ▼単体テスト7 異常系(decide_quantityメソッド)※不正な値の入力に対応できているかどうかを確認
+    context "1を入力したとき" do
+      let(:correct_quantity_input) { "1\n" }
+      it_behaves_like "@quantity_of_productが，入力値を整数化した値と等しいこと"
+    end
+
+    context "2〜100の数字のいずれかを入力したとき" do
+      let(:correct_quantity_input) { "#{rand(2..100)}\n" }
+      it_behaves_like "@quantity_of_productが，入力値を整数化した値と等しいこと"
+    end
+
+    # ▼単体テスト7 異常系(decide_quantityメソッド)
+    let(:correct_quantity_input) { "1\n" }
     let(:pronpt_re_enter_msg) { /１個以上選んでください。/ }
 
     shared_examples "再入力を促すこと" do
