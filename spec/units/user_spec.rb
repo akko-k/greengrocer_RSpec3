@@ -57,6 +57,7 @@ RSpec.describe User do
 
   # ▼単体テスト7
   describe ".decide_quantity" do
+    let(:user) { User.new }
     # ▼単体テスト7 正常系(decide_quantityメソッド)
 
     shared_examples "@quantity_of_productが，入力値を整数化した値と等しいこと" do
@@ -67,7 +68,7 @@ RSpec.describe User do
       end
     end
 
-    context "1を入力したとき" do
+    context "1を入力したとき" do  
       let(:correct_quantity_input) { "1\n" }
       it_behaves_like "@quantity_of_productが，入力値を整数化した値と等しいこと"
     end
@@ -78,7 +79,6 @@ RSpec.describe User do
     end
 
     # ▼単体テスト7 異常系(decide_quantityメソッド)
-    let(:correct_quantity_input) { "1\n" }
     let(:pronpt_re_enter_msg) { /１個以上選んでください。/ }
 
     shared_examples "再入力を促すこと" do
@@ -90,16 +90,19 @@ RSpec.describe User do
 
     context "0を入力したとき" do
       let(:wrong_quantity_input) { "0\n" }
-      it_behaves_like "再入力を促すこと"
+      let(:correct_quantity_input) { "1\n" }
+      it_behaves_like "再入力を促すこと" 
     end
 
     context "負の数字を入力したとき" do
-      let(:wrong_quantity_input) { "#{rand(-100..-1)}\n" }
+      let(:wrong_quantity_input) { "0\n" }
+      let(:correct_quantity_input) { "1\n" }
       it_behaves_like "再入力を促すこと"
     end
 
     context "数字以外の文字列を入力したとき" do
-      let(:wrong_quantity_input) { "hoge\n" }
+      let(:wrong_quantity_input) { "0\n" }
+      let(:correct_quantity_input) { "1\n" }
       it_behaves_like "再入力を促すこと"
     end
   end
