@@ -57,21 +57,21 @@ describe ".grenngrocer_program" do
     end
   end
 
-  context "最初の番号の商品が4個のとき" do
+  context "最初のidの商品が4個のとき" do
     let(:correct_product_id_input) { "#{products.first.id}\n" }
     let(:correct_quantity_input) { "4\n" }
     let(:total_price_msg) { "合計金額は400円です。" }
     it_behaves_like "正しい合計金額を含む，期待した表示がされること"
   end
 
-  context "最後の番号の商品が4個のとき" do
+  context "最後のidの商品が4個のとき" do
     let(:correct_product_id_input) { "#{products.last.id}\n" }
     let(:correct_quantity_input) { "4\n" }
     let(:total_price_msg) { "合計金額は1400円です。" }
     it_behaves_like "正しい合計金額を含む，期待した表示がされること"
   end
 
-  context "最初の番号の商品が5個のとき" do
+  context "最初のidの商品が5個のとき" do
     let(:correct_product_id_input) { "#{products.first.id}\n" }
     let(:correct_quantity_input) { "5\n" }
     let(:discount_msg) { "5個以上なので10％割引となります！" }
@@ -79,7 +79,7 @@ describe ".grenngrocer_program" do
     it_behaves_like "割引した正しい合計金額を含む，期待した表示がされること"
   end
 
-  context "最後の番号の商品が5個のとき" do
+  context "最後のidの商品が5個のとき" do
     let(:correct_product_id_input) { "#{products.last.id}\n" }
     let(:correct_quantity_input) { "5\n" }
     let(:discount_msg) { "5個以上なので10％割引となります！" }
