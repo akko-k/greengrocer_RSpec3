@@ -34,7 +34,8 @@ describe ".grenngrocer_program" do
       allow(ARGF).to receive(:gets).and_return correct_quantity_input
       user.decide_quantity
       # 合計金額を計算すると期待する結果になること
-      expect { greengrocer1.calculate_charges(user) }.to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
+      expect { greengrocer1.calculate_charges(user) }
+        .to output("#{total_price_msg}\n#{thank_msg}\n").to_stdout
     end
   end
 
@@ -53,7 +54,8 @@ describe ".grenngrocer_program" do
       allow(ARGF).to receive(:gets).and_return correct_quantity_input
       user.decide_quantity
       # 合計金額を計算すると期待する結果になること
-      expect { greengrocer1.calculate_charges(user) }.to output("#{discount_msg}\n#{discount_total_price_msg}\n#{thank_msg}\n").to_stdout
+      expect { greengrocer1.calculate_charges(user) }
+        .to output("#{discount_msg}\n#{discount_total_price_msg}\n#{thank_msg}\n").to_stdout
     end
   end
 
