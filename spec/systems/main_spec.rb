@@ -15,7 +15,7 @@ describe ".grenngrocer_program" do
       { name: "れんこん", price: 350 },
     ]
   end
-  let(:products) { greengrocer1.products }
+  let(:products1) { greengrocer1.products }
   let(:user) { User.new }
   let(:thank_msg) { "お買い上げありがとうございました！" }
 
@@ -27,7 +27,7 @@ describe ".grenngrocer_program" do
       greengrocer1.disp_products
       # 商品を選択
       allow(ARGF).to receive(:gets).and_return correct_product_id_input
-      user.choose_product(products)
+      user.choose_product(products1)
       # 個数を質問
       greengrocer1.ask_quantity(user.chosen_product)
       # 個数を決定
@@ -46,7 +46,7 @@ describe ".grenngrocer_program" do
       greengrocer1.disp_products
       # 商品を選択
       allow(ARGF).to receive(:gets).and_return correct_product_id_input
-      user.choose_product(products)
+      user.choose_product(products1)
       # 個数を質問
       greengrocer1.ask_quantity(user.chosen_product)
       # 個数を決定
@@ -58,21 +58,21 @@ describe ".grenngrocer_program" do
   end
 
   context "最初のidの商品が4個のとき" do
-    let(:correct_product_id_input) { "#{products.first.id}\n" }
+    let(:correct_product_id_input) { "#{products1.first.id}\n" }
     let(:correct_quantity_input) { "4\n" }
     let(:total_price_msg) { "合計金額は400円です。" }
     it_behaves_like "正しい合計金額を含む，期待する表示がされること"
   end
 
   context "最後のidの商品が4個のとき" do
-    let(:correct_product_id_input) { "#{products.last.id}\n" }
+    let(:correct_product_id_input) { "#{products1.last.id}\n" }
     let(:correct_quantity_input) { "4\n" }
     let(:total_price_msg) { "合計金額は1400円です。" }
     it_behaves_like "正しい合計金額を含む，期待する表示がされること"
   end
 
   context "最初のidの商品が5個のとき" do
-    let(:correct_product_id_input) { "#{products.first.id}\n" }
+    let(:correct_product_id_input) { "#{products1.first.id}\n" }
     let(:correct_quantity_input) { "5\n" }
     let(:discount_msg) { "5個以上なので10％割引となります！" }
     let(:discount_total_price_msg) { "合計金額は450円です。" }
@@ -80,7 +80,7 @@ describe ".grenngrocer_program" do
   end
 
   context "最後のidの商品が5個のとき" do
-    let(:correct_product_id_input) { "#{products.last.id}\n" }
+    let(:correct_product_id_input) { "#{products1.last.id}\n" }
     let(:correct_quantity_input) { "5\n" }
     let(:discount_msg) { "5個以上なので10％割引となります！" }
     let(:discount_total_price_msg) { "合計金額は1575円です。" }
