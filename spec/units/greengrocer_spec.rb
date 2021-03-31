@@ -29,7 +29,7 @@ RSpec.describe Greengrocer do
     let(:adding_product_params) do
       [
         { name: "ごぼう", price: 250 },
-        { name: "れんこん", price: 350 },
+        { name: "れんこん", price: 350 }
       ]
     end
 
